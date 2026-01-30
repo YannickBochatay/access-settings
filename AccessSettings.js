@@ -5,14 +5,14 @@ globalStyles.innerHTML = `
     font-family: open-dyslexic;
     src: url(https://fonts.cdnfonts.com/s/29616/open-dyslexic.woff);
   }
-  html.dyslexic {
+  :root.dyslexic {
     font-family:open-dyslexic, sans-serif;
   }
-  html.invertedColors {
+  :root.invertedColors {
     filter:invert(1);
   }
   @media (prefers-color-scheme: dark) {
-    html:has(access-settings[invert-colors], access-settings[all]) {
+    :root:has(access-settings[invert-colors], access-settings[all]) {
       filter:invert(1);
       &.invertedColors {
         filter:invert(0);
@@ -172,6 +172,7 @@ const style = `
 
       .field, ::slotted([slot=option])  {
         padding: 0 25px 0 15px;
+        display:block;
         &:hover {
           background-color:#eee;
         }
