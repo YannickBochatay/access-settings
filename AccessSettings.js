@@ -12,11 +12,11 @@ globalStyles.innerHTML = `
     filter:invert(1);
   }
   @media (prefers-color-scheme: dark) {
-    html {
+    html:has(access-settings[invert-colors], access-settings[all]) {
       filter:invert(1);
-    }
-    html.invertedColors {
-      filter:invert(0);
+      &.invertedColors {
+        filter:invert(0);
+      }
     }
   }
 `;
@@ -113,8 +113,8 @@ const style = `
       display:block;
     }
   }
-  :host([all]), :host([inverted-colors]) {
-    form .field[part=inverted-colors] {
+  :host([all]), :host([invert-colors]) {
+    form .field[part=invert-colors] {
       display:block;
     }
   }
@@ -177,6 +177,10 @@ const style = `
         }
       }
 
+      .field {
+        display:none;
+      }
+
       input {
         font-size:1em;
         font-family:unset;
@@ -225,7 +229,7 @@ template.innerHTML = `
         <input type="checkbox" id="dyslexic-field">
         <label for="dyslexic-field">Police dyslexie</label>
       </div>
-      <div class="field" part="inverted-colors">
+      <div class="field" part="invert-colors">
         <input type="checkbox" id="colors-field">
         <label for="colors-field">Couleurs inversées</label>
       </div>
