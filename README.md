@@ -4,6 +4,8 @@ Web component for accessibility settings
 ## Demo
 https://yannickbochatay.github.io/access-settings/example
 
+![screenshot of component](./screenshot.png)
+
 ## Installation
 
 ### From CDN
@@ -15,7 +17,7 @@ The fastest and simplest way to get started.
   <head>
     <meta charset="UTF-8">
     <title>My accessible page</title>
-    <script src="https://cdn.jsdelivr.net/npm/access-settings@0.0.1/"></script>
+    <script src="https://cdn.jsdelivr.net/npm/access-settings@0.0.1/dist/index.js"></script>
   </head>
   <body>
     <access-settings all></accessibility-settings>
@@ -33,7 +35,7 @@ npm install access-settings
 
 ### Direct download
 
-You can download the [file directly from GitHub]((https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js)).
+You can download the [file directly from GitHub](https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js).
 
 
 ## Usage
@@ -63,6 +65,9 @@ To display the icon in a circle, use `rounded` attribute.
 <access-settings all rounded>
 </access-settings>
 ```
+
+#### lang
+Component labels are based on `lang` attribute in the html tag. Languages available are english (**en**) and french (**fr**). Customisation is coming.
 
 ## Customisation
 
