@@ -251,25 +251,25 @@ template.innerHTML = `
     </summary>
     <form part="form">
       <div class="field" part="dyslexic-font">
-        <input type="checkbox" id="dyslexic-field">
-        <label for="dyslexic-field">Police dyslexie</label>
+        <input type="checkbox" id="dyslexic-font">
+        <label for="dyslexic-font">Police dyslexie</label>
       </div>
       <div class="field" part="invert-colors">
-        <input type="checkbox" id="colors-field">
-        <label for="colors-field">Couleurs inversées</label>
+        <input type="checkbox" id="inverted-colors">
+        <label for="inverted-colors">Couleurs inversées</label>
       </div>
       <div class="field" part="font-size">
-        <input type="number" id="fontSize-field">
-        <label for="fontSize-field">Taille de police</label>
+        <input type="number" id="font-size">
+        <label for="font-size">Taille de police</label>
       </div>
       <div class="field" part="line-height">
-        <input type="number" id="lineHeight-field" step="0.1">
-        <label for="lineHeight-field">Interligne</label>
+        <input type="number" id="line-height" step="0.1">
+        <label for="line-height">Interligne</label>
       </div>
       <slot name="option"></slot>
       <div part="buttons"> 
-        <input type="button" id="reset-preferences" value="Réinitialiser"/>
-        <input type="button" id="close-preferences" value="Terminer"/>
+        <input type="button" id="reset" value="Réinitialiser"/>
+        <input type="button" id="close" value="Terminer"/>
       </div>
     </form>
   </details>
@@ -278,29 +278,55 @@ template.innerHTML = `
 
 export class AccessSettings extends HTMLElement {
 
+  static languages = {
+    fr : {
+      "dyslexic-font" : "Police dyslexie",
+      "inverted-colors" : "Couleurs inversées",
+      "font-size" : "Taille de police",
+      "line-height" : "Hauteur de ligne",
+      "reset" : "Réinitialiser",
+      "close" : "Terminer"
+    },
+    en : {
+       "dyslexic-font" : "Dyslexic font",
+      "inverted-colors" : "Inverted colors",
+      "font-size" : "Font size",
+      "line-height" : "Line height",
+      "reset" : "Reset",
+      "close" : "Close"
+    }
+  }
+
   #fontField
   #colorsField
   #fontSizeField
   #lineHeightField
+  #observer
 
   constructor() {
     super();
     const root = this.attachShadow({ mode : "open" });
     root.append(template.content.cloneNode(true));
 
-    this.#fontField = root.querySelector("#dyslexic-field");
-    this.#colorsField = root.querySelector("#colors-field");
-    this.#fontSizeField = root.querySelector("#fontSize-field");
-    this.#lineHeightField = root.querySelector("#lineHeight-field");
+    this.#fontField = root.querySelector("#dyslexic-font");
+    this.#colorsField = root.querySelector("#inverted-colors");
+    this.#fontSizeField = root.querySelector("#font-size");
+    this.#lineHeightField = root.querySelector("#line-height");
 
     this.#fontField.addEventListener("change", e => preferences.dyslexicFont = e.target.checked);
     this.#colorsField.addEventListener("change", e => preferences.invertedColors = e.target.checked);
     this.#fontSizeField.addEventListener("change", e => preferences.fontSize = e.target.value);
     this.#lineHeightField.addEventListener("change", e => preferences.lineHeight = e.target.value);
 
-    root.querySelector("#reset-preferences").addEventListener("click", resetPrefs);
-    root.querySelector("#close-preferences").addEventListener("click", () => {
+    root.querySelector("#reset").addEventListener("click", resetPrefs);
+    root.querySelector("#close").addEventListener("click", () => {
       root.querySelector("details").open = false;
+    });
+
+    this.#observer = new MutationObserver((mutationList, observer) => {
+      for (const mutation of mutationList) {
+        if (mutation.attributeName === 'lang') this.#handleLangChange();
+      }
     });
   }
 
@@ -311,14 +337,32 @@ export class AccessSettings extends HTMLElement {
     this.#lineHeightField.value = preferences.lineHeight;
   }
 
+  #handleLangChange() {
+    const lang = document.documentElement.lang
+    const locale = this.constructor.languages[lang]
+    const labels = this.shadowRoot.querySelectorAll("label")
+
+    for (let label of labels) {
+      let key = label.getAttribute("for")
+      if (locale[key]) label.textContent = locale[key]
+    }
+
+    for (let id of ["close", "reset"]) {
+      this.shadowRoot.querySelector(`#${id}`).value = locale[id]
+    }
+  }
+
   connectedCallback() {
     this.#handleStateChange();
-    listeners.push(this.#handleStateChange)
+    this.#handleLangChange();
+    listeners.push(this.#handleStateChange);
+    this.#observer.observe( document.documentElement, { attributes: true });
   }
 
   disconnectedCallback() {
     let index = listeners.indexOf(this.#handleStateChange);
     if (index !== -1) listeners.splice(index, 1);
+    this.#observer.disconnect();
   }
 }
 
