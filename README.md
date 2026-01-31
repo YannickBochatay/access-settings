@@ -2,10 +2,10 @@
 Web component for accessibility settings
 
 ## Demo
-https://yannickbochatay.github.io/accessibility-settings/
+https://yannickbochatay.github.io/access-settings/
 
 ## Install
-Download [source file](https://raw.githubusercontent.com/YannickBochatay/accessibility-settings/refs/heads/main/AccessSettings.js) on Github.
+Download [source file](https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/AccessSettings.js) on Github.
 
 Link file in your html and use the `access-settings` component where you want. 
 ```html
