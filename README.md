@@ -17,7 +17,7 @@ The fastest and simplest way to get started.
   <head>
     <meta charset="UTF-8">
     <title>My accessible page</title>
-    <script src="https://cdn.jsdelivr.net/npm/access-settings@0.0.1/dist/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/access-settings@0.0.3/dist/index.js"></script>
   </head>
   <body>
     <access-settings all></accessibility-settings>
@@ -53,7 +53,7 @@ To display all the options, add the `all` attribute. Otherwise add specific opti
 ```
 
 #### side
-By default, the component has a fixed position at the top right of the screen. The drop-down menu will align to the right with the icon. To position it on the left, use the ‘side’ attribute. 
+By default, the component has a fixed position at the right of the screen. The drop-down menu will align to the right with the icon. To position it on the left, use the ‘side’ attribute. 
 ```html
 <access-settings side="left">
 </access-settings>
@@ -76,7 +76,7 @@ Customise the position of the component in CSS
 ```css
 accessibility-settings {
   position:absolute;
-  top:150px;
+  top:5px;
   right:5px;
 }
 ```

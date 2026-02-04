@@ -3,7 +3,7 @@ export const style = `
     font-size:18px;
     line-height:1.5;
     position:fixed;
-    top:3px;
+    top:40%;
     right:5px;
   }
   :host([side="left"]) {

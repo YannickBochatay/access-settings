@@ -4,7 +4,7 @@ globalStyles.innerHTML = `
   @font-face {
     font-family: open-dyslexic;
     src: url(https://fonts.cdnfonts.com/s/29616/open-dyslexic.woff);
-  }:
+  }
   :root {
     --access-font-family:open-dyslexic, sans-serif;
   }
