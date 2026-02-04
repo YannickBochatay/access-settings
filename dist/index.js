@@ -6,8 +6,14 @@
     font-family: open-dyslexic;
     src: url(https://fonts.cdnfonts.com/s/29616/open-dyslexic.woff);
   }
+  :root {
+    --access-font-family:open-dyslexic, sans-serif;
+  }
   :root.dyslexic {
-    font-family:open-dyslexic, sans-serif;
+    font-family:var(--access-font-family);
+    body, main, article, section, aside, p {
+      font-family:var(--access-font-family);
+    }
   }
   :root.invertedColors {
     filter:invert(1);
@@ -113,7 +119,7 @@
     font-size:18px;
     line-height:1.5;
     position:fixed;
-    top:3px;
+    top:40%;
     right:5px;
   }
   :host([side="left"]) {
@@ -323,8 +329,9 @@
       this.#lineHeightField.value = preferences.lineHeight;
     };
     #handleLangChange() {
-      const lang = document.documentElement.lang;
-      const locale = this.constructor.languages[lang];
+      const lang = document.documentElement.lang || "en";
+      const { languages } = this.constructor;
+      const locale = languages[lang] ?? languages.en;
       const labels = this.shadowRoot.querySelectorAll("label");
       for (let label of labels) {
         let key = label.getAttribute("for");

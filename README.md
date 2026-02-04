@@ -17,7 +17,7 @@ The fastest and simplest way to get started.
   <head>
     <meta charset="UTF-8">
     <title>My accessible page</title>
-    <script src="https://cdn.jsdelivr.net/npm/access-settings@0.0.3/dist/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/access-settings"></script>
   </head>
   <body>
     <access-settings all></accessibility-settings>
