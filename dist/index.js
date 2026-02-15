@@ -1,23 +1,51 @@
 (() => {
   // src/globalStyles.js
   var globalStyles = document.createElement("style");
-  globalStyles.innerHTML = `
+  globalStyles.id = "access-settings-css-rules";
+  globalStyles.innerHTML = /*css*/
+  `
   @font-face {
     font-family: open-dyslexic;
     src: url(https://fonts.cdnfonts.com/s/29616/open-dyslexic.woff);
   }
   :root {
     --access-font-family:open-dyslexic, sans-serif;
+    --access-line-height:1.5;
+    --access-font-size:16px;
+    --access-contrast:100%;
   }
   :root.dyslexic {
     font-family:var(--access-font-family);
-    body, main, article, section, aside, p {
+    body, header, footer, main, article, section, aside, p {
       font-family:var(--access-font-family);
     }
   }
-  :root.invertedColors {
-    filter:invert(1);
+  :root.lineHeight {
+    line-height:var(--access-line-height);
+    body, header, footer, main, article, section, aside, p {
+      line-height:var(--access-line-height);
+    }
   }
+  :root.fontSize {
+    font-size:var(--access-font-family);
+    body, header, footer, main, article, section, aside, p {
+      font-size:var(--access-font-size);
+    }
+  }
+  :root.invertedColors {
+    &:not(.contrasted) {
+      filter:invert(1);
+    }
+    &.contrasted {
+      filter:invert(1) contrast(var(--access-contrast));
+    }
+  }
+  :root.contrasted {
+    &:not(.invertedColors) {
+      filter:contrast(var(--access-contrast));
+    }
+  }
+  
   @media (prefers-color-scheme: dark) {
     :root:has(access-settings[invert-colors], access-settings[all]) {
       filter:invert(1);
@@ -61,18 +89,41 @@
 
   // src/preferences.js
   var root = document.documentElement;
-  function getInitialFontSize() {
-    let fontSize = getComputedStyle(root).fontSize;
-    return Number.parseInt(fontSize);
+  function getInitialFontSize(elmt = root) {
+    let fontSize = getComputedStyle(elmt).fontSize;
+    let value = Number.parseInt(fontSize);
+    if (Number.isNaN(value)) {
+      let p = document.createElement("p");
+      document.body.appendChild(p);
+      value = getInitialFontSize(p);
+      p.remove();
+    }
+    return value;
   }
-  function getInitialLineHeight() {
-    let lineHeight = getComputedStyle(root).lineHeight;
-    return Number.parseInt(lineHeight) / getInitialFontSize();
+  function getInitialLineHeight(elmt = root) {
+    let lineHeight = getComputedStyle(elmt).lineHeight;
+    if (!isNaN(lineHeight)) return Number(lineHeight);
+    let value = Number.parseInt(lineHeight);
+    if (Number.isNaN(value)) {
+      if (elmt === root) {
+        let p = document.createElement("p");
+        p.style.margin = 0;
+        p.style.border = "none";
+        p.style.padding = 0;
+        p.textContent = "toto";
+        document.body.appendChild(p);
+        value = getInitialLineHeight(p);
+        p.remove();
+      } else {
+        return elmt.getBoundingClientRect().height;
+      }
+    }
+    return Math.round(value * 10 / getInitialFontSize()) / 10;
   }
   var initialPrefs = {
     dyslexicFont: false,
     invertedColors: false,
-    contraste: 100,
+    contrast: 100,
     fontSize: getInitialFontSize(),
     lineHeight: getInitialLineHeight()
   };
@@ -87,11 +138,17 @@
         if (value) root.classList.add("invertedColors");
         else root.classList.remove("invertedColors");
         break;
+      case "contrast":
+        root.classList.add("contrasted");
+        root.style.setProperty("--access-contrast", value + "%");
+        break;
       case "fontSize":
-        root.style.fontSize = value + "px";
+        root.classList.add("fontSize");
+        root.style.setProperty("--access-font-size", value + "px");
         break;
       case "lineHeight":
-        root.style.lineHeight = value;
+        root.classList.add("lineHeight");
+        root.style.setProperty("--access-line-height", value);
         break;
     }
   });
@@ -99,6 +156,8 @@
   function resetPrefs() {
     for (let key in defaultPrefs) {
       preferences[key] = defaultPrefs[key];
+      root.classList.remove("fontSize", "lineHeight", "contrasted");
+      localStorage.removeItem(STORAGE_NAME);
     }
   }
   var STORAGE_NAME = "preferences";
@@ -114,7 +173,9 @@
   }
 
   // src/style.js
-  var style = `
+  var style = (
+    /*css*/
+    `
   :host {
     font-size:18px;
     line-height:1.5;
@@ -136,6 +197,11 @@
   }
   :host([all]), :host([invert-colors]) {
     form .field[part=invert-colors] {
+      display:block;
+    }
+  }
+  :host([all]), :host([contrast]) {
+    form .field[part=contrast] {
       display:block;
     }
   }
@@ -220,7 +286,8 @@
       }
     }
   }
-`;
+`
+  );
 
   // src/template.js
   var template = document.createElement("template");
@@ -255,6 +322,10 @@
         <input type="checkbox" id="inverted-colors">
         <label for="inverted-colors">Couleurs invers\xE9es</label>
       </div>
+      <div class="field" part="contrast">
+        <input type="number" step="10" id="contrast" min="50" max="150">
+        <label for="contrast">Contraste</label>
+      </div>
       <div class="field" part="font-size">
         <input type="number" id="font-size">
         <label for="font-size">Taille de police</label>
@@ -277,6 +348,7 @@
     fr: {
       "dyslexic-font": "Police dyslexie",
       "inverted-colors": "Couleurs invers\xE9es",
+      contrast: "Contraste",
       "font-size": "Taille de police",
       "line-height": "Hauteur de ligne",
       reset: "R\xE9initialiser",
@@ -285,6 +357,7 @@
     en: {
       "dyslexic-font": "Dyslexic font",
       "inverted-colors": "Inverted colors",
+      contrast: "Contrast",
       "font-size": "Font size",
       "line-height": "Line height",
       reset: "Reset",
@@ -297,6 +370,7 @@
     static languages = languages_default;
     #fontField;
     #colorsField;
+    #contrastField;
     #fontSizeField;
     #lineHeightField;
     #observer;
@@ -306,10 +380,12 @@
       root2.append(template.content.cloneNode(true));
       this.#fontField = root2.querySelector("#dyslexic-font");
       this.#colorsField = root2.querySelector("#inverted-colors");
+      this.#contrastField = root2.querySelector("#contrast");
       this.#fontSizeField = root2.querySelector("#font-size");
       this.#lineHeightField = root2.querySelector("#line-height");
       this.#fontField.addEventListener("change", (e) => preferences.dyslexicFont = e.target.checked);
       this.#colorsField.addEventListener("change", (e) => preferences.invertedColors = e.target.checked);
+      this.#contrastField.addEventListener("change", (e) => preferences.contrast = e.target.value);
       this.#fontSizeField.addEventListener("change", (e) => preferences.fontSize = e.target.value);
       this.#lineHeightField.addEventListener("change", (e) => preferences.lineHeight = e.target.value);
       root2.querySelector("#reset").addEventListener("click", resetPrefs);
@@ -325,6 +401,7 @@
     #handleStateChange = () => {
       this.#fontField.checked = preferences.dyslexicFont;
       this.#colorsField.checked = preferences.invertedColors;
+      this.#contrastField.value = preferences.contrast;
       this.#fontSizeField.value = preferences.fontSize;
       this.#lineHeightField.value = preferences.lineHeight;
     };
