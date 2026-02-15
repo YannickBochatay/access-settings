@@ -16,19 +16,19 @@ globalStyles.innerHTML = /*css*/`
   :root.dyslexic {
     font-family:var(--access-font-family);
     body, header, footer, main, article, section, aside, p {
-      font-family:var(--access-font-family);
+      font-family:var(--access-font-family) !important;
     }
   }
   :root.lineHeight {
     line-height:var(--access-line-height);
     body, header, footer, main, article, section, aside, p {
-      line-height:var(--access-line-height);
+      line-height:var(--access-line-height) !important;
     }
   }
   :root.fontSize {
-    font-size:var(--access-font-family);
+    font-size:var(--access-font-size);
     body, header, footer, main, article, section, aside, p {
-      font-size:var(--access-font-size);
+      font-size:1rem !important;
     }
   }
   :root.invertedColors {
@@ -47,9 +47,19 @@ globalStyles.innerHTML = /*css*/`
   
   @media (prefers-color-scheme: dark) {
     :root:has(access-settings[invert-colors], access-settings[all]) {
-      filter:invert(1);
+      &:not(.contrasted) {
+        filter:invert(1);
+      }
+      &.contrasted {
+        filter:invert(1) contrast(var(--access-contrast));
+      }
       &.invertedColors {
-        filter:invert(0);
+        &:not(.contrasted) {
+          filter:invert(0);
+        }
+        &.contrasted {
+          filter:invert(0) contrast(var(--access-contrast));
+        }
       }
     }
   }

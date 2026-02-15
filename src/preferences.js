@@ -6,7 +6,7 @@ function getInitialFontSize(elmt = root) {
   let fontSize = getComputedStyle(elmt).fontSize;
   let value = Number.parseInt(fontSize);
 
-  if (Number.isNaN(value)) {
+  if (Number.isNaN(value) && elmt === root) {
     let p = document.createElement("p");
     document.body.appendChild(p);
     value = getInitialFontSize(p);
@@ -26,15 +26,16 @@ function getInitialLineHeight(elmt = root) {
   if (Number.isNaN(value)) {
     if (elmt === root) {
       let p = document.createElement("p");
-      p.style.margin = 0
-      p.style.border = "none"
-      p.style.padding = 0
+      p.style.margin = 0;
+      p.style.border = "none";
+      p.style.padding = 0;
       p.textContent = "toto";
       document.body.appendChild(p);
-      value = getInitialLineHeight(p);
+      let lineHeight = getInitialLineHeight(p);
       p.remove();
+      return lineHeight;
     } else {
-      return elmt.getBoundingClientRect().height
+      return elmt.getBoundingClientRect().height;
     }
   }
 
