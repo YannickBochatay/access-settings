@@ -76,19 +76,27 @@ export class AccessSettings extends HTMLElement {
     this.#lineHeightField.value = preferences.lineHeight;
   }
 
+  #parseLang() {
+    const attr = document.documentElement.lang;
+
+    if (!attr) return "en";
+
+    return /^(\w+)(-\w+){0,2}$/.exec(attr)?.[1] || "en";
+  }
+
   #handleLangChange() {
-    const lang = document.documentElement.lang || 'en'
-    const { languages } = this.constructor
-    const locale = languages[lang] ?? languages.en
-    const labels = this.shadowRoot.querySelectorAll("label")
+    const lang = this.#parseLang();
+    const { languages } = this.constructor;
+    const locale = languages[lang] ?? languages.en;
+    const labels = this.shadowRoot.querySelectorAll("label");
 
     for (let label of labels) {
-      let key = label.getAttribute("for")
-      if (locale[key]) label.textContent = locale[key]
+      let key = label.getAttribute("for");
+      if (locale[key]) label.textContent = locale[key];
     }
 
     for (let id of ["close", "reset"]) {
-      this.shadowRoot.querySelector(`#${id}`).value = locale[id]
+      this.shadowRoot.querySelector(`#${id}`).value = locale[id];
     }
   }
 
