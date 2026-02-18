@@ -15,7 +15,7 @@ globalStyles.innerHTML = /*css*/`
   }
   :root.dyslexic {
     font-family:var(--access-font-family);
-    body, header, footer, main, article, section, aside, p {
+    h1,h2,h3,h4,h5,h6, body, header, footer, main, article, section, aside, p {
       font-family:var(--access-font-family) !important;
     }
   }

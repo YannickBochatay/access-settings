@@ -106,6 +106,7 @@ export const style = /*css*/`
 
       [part=buttons] {
         text-align:center;
+        margin:0 15px;
       }
     }
   }
