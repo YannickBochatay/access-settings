@@ -1,52 +1,12 @@
-html {
-  --background: #efeff1;
-  --foreground: #fbfbfb;
-  --border: #dedde2;
-
-  --copy: #252329;
-  --copy-light: #645e6e;
-  --copy-lighter: #8a8495;
-
-  font-family: Arial, Helvetica, sans-serif;
-  font-size:16px;
-  line-height:1.5;
-  color:var(--copy);
-  scroll-behavior:smooth;
-  background-color: var(--background);
-}
 h1 {
   text-align:center;
 }
-a {
-  color:var(--copy);
+section {
+  padding:0.5em 1em;
 }
-nav {
-  padding:0px 30px;
-  border-radius:5px;
-  border:1px solid var(--border);
-  background-color: var(--foreground);
+section.selected {
+  box-shadow:0px 0px 10px #bbb;
 }
 main {
-  margin:auto;
-  max-width:80ch;
   margin-bottom:1500px;
-}
-p {
-  text-align:left;
-  text-indent:2rem;
-  padding:10px;
-}
-pre code {
-  font-size:0.9rem;
-}
-#arrows {
-  font-size:2rem;
-  margin-left:2ch;
-}
-#bookmarklet {
-  display:inline-block;
-  padding:5px 10px;
-  border-radius:4px;
-  background-color: #ddd;
-  text-decoration: none;
 }

@@ -4,9 +4,17 @@ const access = document.createElement("access-settings");
 access.setAttribute("all","");
 document.body.append(access);
 
+const sections = document.querySelectorAll("main section[id]");
+
 function removeAttributes() {
   for (const attr of access.attributes) {
     access.removeAttribute(attr.name);
+  }
+}
+function select(selected) {
+  for (let section of sections) {
+    if (selected === section) section.classList.add("selected");
+    else section.classList.remove("selected");
   }
 }
 
@@ -15,35 +23,58 @@ function handleIntersect(entries, observer) {
     
     if (!entry.isIntersecting) return;
     const { id } = entry.target;
+
+    select(entry.target);
+    removeAttributes();
+    document.documentElement.lang = "fr";
+    access.open = true;
      
     switch (id) {
       case "install":
         access.open = false;
         break;
       case "all":
-        removeAttributes();
         access.setAttribute("all", "");
-        access.open = true;break;
+        break;
       case "dyslexic-font":
-        removeAttributes();
         access.setAttribute("dyslexic-font", "");
         break;
       case "invert-colors":
-        removeAttributes();
+        access.setAttribute("dyslexic-font", "");
         access.setAttribute("invert-colors", "");
         break;
       case "contrast":
-        removeAttributes();
+        access.setAttribute("dyslexic-font", "");
+        access.setAttribute("invert-colors", "");
         access.setAttribute("contrast", "");
         break;
       case "font-size":
-        removeAttributes();
+        access.setAttribute("dyslexic-font", "");
+        access.setAttribute("invert-colors", "");
+        access.setAttribute("contrast", "");
         access.setAttribute("font-size", "");
         break;
       case "line-height":
-        removeAttributes();
+        access.setAttribute("dyslexic-font", "");
+        access.setAttribute("invert-colors", "");
+        access.setAttribute("contrast", "");
+        access.setAttribute("font-size", "");
         access.setAttribute("line-height", "");
         break;
+      case "side":
+        access.setAttribute("all", "");
+        access.setAttribute("side", "left");
+        break;
+      case "rounded":
+        access.setAttribute("all", "");
+        access.setAttribute("rounded", "");
+        access.setAttribute("side", "left");
+        break;
+      case "lang":
+        access.setAttribute("all", "");
+        access.setAttribute("rounded", "");
+        access.setAttribute("side", "left");
+        document.documentElement.lang = "en";
     }
   });
 }
@@ -55,6 +86,6 @@ let options = {
 
 const observer = new IntersectionObserver(handleIntersect, options);
 
-for (const section of document.querySelectorAll("main section[id]")) {
+for (const section of sections) {
   observer.observe(section);
 }

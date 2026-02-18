@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/default.min.css">
   <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
   <link rel="stylesheet" href="styles.css">
@@ -12,12 +13,12 @@
   <title>Access Settings</title>
 </head>
 
-<body>
+<body class="container">
   <header>
     <h1>Composant Access Settings</h1>
   </header>
   <main>
-    <section id="install">
+    <section>
       <h2>Installation</h2>
       <section>
         <h3>CDN</h3>
@@ -40,36 +41,67 @@
         <pre><code class="language-html">&lt;script src="node_modules/access-settings/dist/index.js">&lt;/script></code></pre>
       </section>
       <section>
-        <h3>Direct download</h3>
+        <h3>Téléchargement direct</h3>
         Vous pouvez télécharger directement le <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">fichier sur GitHub</a>.
       </section>
     </section>
-    <section id="utilisation">
+    <section>
       <h2>Utilisation</h2>
       <section id="all">
-      Pour afficher toutes les options, utiliser l'attribut <code>all</code>.
+        <h3>all</h3>
+      <p>Pour afficher toutes les options, utiliser l'attribut <code>all</code>.</p>
       <pre><code class="language-html">&lt;access-settings all>&lt;/access-settings></code></pre>
       </section>
       <section id="dyslexic-font">
+        <h3>dyslexic-font</h3>
+        <p>Pour activer l'option police dyslexie, utiliser l'attribut <code>dyslexic-font</code>.</p>
+        <p>La police utilisée est <a href="https://opendyslexic.org/">Open Dyslexic</a> depuis le serveur <a href="https://www.cdnfonts.com">CDN|Fonts</a>.</p>
         <pre><code class="language-html">&lt;access-settings dyslexic-font>
 &lt;/access-settings></code></pre>
       </section>
       <section id="invert-colors">
+        <h3>invert-colors</h3>
+        <p>Pour activer l'option d'inversion des couleurs, utiliser l'attribut <code>invert-colors</code>.</p>
         <pre><code class="language-html">&lt;access-settings dyslexic-font invert-colors>
 &lt;/access-settings></code></pre>
       </section>
       <section id="contrast">
+        <h3>contrast</h3>
+        <p>Pour activer le réglage du contraste, utiliser l'attribut <code>contrast</code>.</p>
         <pre><code class="language-html">&lt;access-settings dyslexic-font invert-colors contrast>
 &lt;/access-settings></code></pre>
       </section>
       <section id="font-size">
+        <h3>font-size</h3>
+        <p>Pour activer le réglage de la taille du texte, utiliser l'attribut <code>font-size</code>.</p>
         <pre><code class="language-html">&lt;access-settings dyslexic-font invert-colors contrast font-size>
 &lt;/access-settings></code></pre>
       </section>
       <section id="line-height">
+        <h3>line-height</h3>
+        <p>Pour activer le réglage de la hauteur de ligne, utiliser l'attribut <code>line-height</code>.</p>
         <pre><code class="language-html">&lt;access-settings dyslexic-font invert-colors contrast font-size line-height>
 &lt;/access-settings></code></pre>
       </section>
+      <section id="side">
+        <h3>side="left"</h3>
+        <p>Par défaut le composant est placé sur le bord droit de l'écran. Pour le positionner à gauche,
+          utiliser l'attribut <code>side="left"</code>
+        </p>
+        <pre><code class="language-html">&lt;access-settings all side="left">
+&lt;/access-settings></code></pre>
+      </section>
+      <section id="rounded">
+        <h3>rounded</h3>
+        <p>Pour que le contour de l'icône soit arrondi, utiliser l'attribut <code>rounded</code></p>
+        <pre><code class="language-html">&lt;access-settings all side="left" rounded></code></pre>
+      </section>
+      <section id="lang">
+        <h3>lang</h3>
+        <p>La langue est déterminée par l'attribut <code>lang</code> de l'élément racine html.</p>
+        <p>Les langues disponibles sont <code>fr</code> et <code>en</code>.</p>
+      </section>
+    </section>
   </main>
 </body>
 
