@@ -57,15 +57,21 @@ export class AccessSettings extends HTMLElement {
     this.#lineHeightField.addEventListener("change", e => preferences.lineHeight = e.target.value);
 
     root.querySelector("#reset").addEventListener("click", resetPrefs);
-    root.querySelector("#close").addEventListener("click", () => {
-      root.querySelector("details").open = false;
-    });
+    root.querySelector("#close").addEventListener("click", () => this.open = false);
 
     this.#observer = new MutationObserver((mutationList, observer) => {
       for (const mutation of mutationList) {
         if (mutation.attributeName === 'lang') this.#handleLangChange();
       }
     });
+  }
+
+  get open() {
+    return this.shadowRoot.querySelector("details").open;
+  }
+
+  set open(value) {
+    this.shadowRoot.querySelector("details").open = value;
   }
 
   #handleStateChange = () => {
