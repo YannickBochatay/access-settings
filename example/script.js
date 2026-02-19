@@ -68,12 +68,9 @@ function handleIntersect(entries, observer) {
       case "rounded":
         access.setAttribute("all", "");
         access.setAttribute("rounded", "");
-        access.setAttribute("side", "left");
         break;
       case "lang":
         access.setAttribute("all", "");
-        access.setAttribute("rounded", "");
-        access.setAttribute("side", "left");
         document.documentElement.lang = "en";
     }
   });
@@ -81,7 +78,7 @@ function handleIntersect(entries, observer) {
 
 let options = {
   root: null,
-  rootMargin: "-40% 0px -50% 0px"
+  rootMargin: "-40% 0px -60% 0px"
 };
 
 const observer = new IntersectionObserver(handleIntersect, options);
