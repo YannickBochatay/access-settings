@@ -8,5 +8,10 @@ section.selected {
   box-shadow:0px 0px 10px #bbb;
 }
 main {
+  max-width:80ch;
+  margin:auto;
   margin-bottom:1500px;
+}
+pre {
+  border: 1px solid var(--pico-accordion-border-color);
 }
