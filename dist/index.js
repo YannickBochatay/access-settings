@@ -193,6 +193,7 @@
     position:fixed;
     top:40%;
     right:5px;
+    left:unset;
   }
   :host([side="left"]) {
     right:unset;

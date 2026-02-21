@@ -4,32 +4,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/default.min.css">
   <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/highlight.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.11.1/build/styles/default.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css">
   <link rel="stylesheet" href="styles.css">
   <script src="../src/index.js" type="module"></script>
+  <script src="table-of-content.js" type="module"></script>
   <script src="script.js" type="module"></script>
   <title>Access Settings</title>
 </head>
 
-<body class="container">
+<body>
   <header>
     <h1>Composant &lt;access-settings&gt;</h1>
   </header>
+  <details id="table-of-content">
+    <summary>☰</summary>
+    <nav>
+      <h2>Sommaire</h2>
+      <ul>
+
+      </ul>
+    </nav>
+  </details>
   <main>
-    <section>
+    <section id="installation">
       <h2>Installation</h2>
-      <section>
+      <section id="cdn">
         <h3>CDN</h3>
         La façon la plus simple et la plus rapide.
-        <pre><code class="language-html">&lt;!DOCTYPE html>
+        <pre><code class="language-html" tabindex="0">&lt;!DOCTYPE html>
 &lt;html lang="fr">
   &lt;head>
     &lt;meta charset="UTF-8">
     &lt;title>My accessible page&lt;/title>
-    &lt;script src="https://cdn.jsdelivr.net/npm/access-settings">&lt;/script>
+    &lt;script src="https://cdn.jsdelivr.net/npm/access-settings">
+    &lt;/script>
   &lt;/head>
   &lt;body>
     &lt;access-settings all>&lt;/access-settings>
@@ -38,52 +48,52 @@
           Dans la plupart des cas vous pouvez vous arrêter là ! Mais si vous le souhaitez le composant est
           entièrement configurable comme expliqué dans la suite de cette documentation.
       </section>
-      <section>
+      <section id="npm">
         <h3>NPM</h3>
-        <pre><code class="language-sh">npm install access-settings</code></pre>
-        <pre><code class="language-html">&lt;script src="node_modules/access-settings/dist/index.js">&lt;/script></code></pre>
+        <pre><code class="language-sh" tabindex="0">npm install access-settings</code></pre>
+        <pre><code class="language-html" tabindex="0">&lt;script src="node_modules/access-settings/dist/index.js">&lt;/script></code></pre>
       </section>
-      <section>
+      <section id="direct-download">
         <h3>Téléchargement direct</h3>
         Vous pouvez télécharger directement le <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">fichier sur GitHub</a>.
       </section>
     </section>
-    <section>
+    <section id="utilisation">
       <h2>Utilisation</h2>
       <section id="all">
         <h3>all</h3>
       <p>Pour afficher toutes les options, utiliser l'attribut <code>all</code>.</p>
-      <pre><code class="language-html">&lt;access-settings all>&lt;/access-settings></code></pre>
+      <pre><code class="language-html" tabindex="0">&lt;access-settings all>&lt;/access-settings></code></pre>
       </section>
       <section id="dyslexic-font">
         <h3>dyslexic-font</h3>
         <p>Pour activer l'option police dyslexie, utiliser l'attribut <code>dyslexic-font</code>.</p>
         <p>La police utilisée est <a href="https://opendyslexic.org/">Open Dyslexic</a> depuis le serveur <a href="https://www.cdnfonts.com">CDN|Fonts</a>.</p>
-        <pre><code class="language-html">&lt;access-settings dyslexic-font>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings dyslexic-font>
 &lt;/access-settings></code></pre>
       </section>
       <section id="invert-colors">
         <h3>invert-colors</h3>
         <p>Pour activer l'option d'inversion des couleurs, utiliser l'attribut <code>invert-colors</code>.</p>
-        <pre><code class="language-html">&lt;access-settings dyslexic-font invert-colors>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings dyslexic-font invert-colors>
 &lt;/access-settings></code></pre>
       </section>
       <section id="contrast">
         <h3>contrast</h3>
         <p>Pour activer le réglage du contraste, utiliser l'attribut <code>contrast</code>.</p>
-        <pre><code class="language-html">&lt;access-settings dyslexic-font invert-colors contrast>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings dyslexic-font invert-colors contrast>
 &lt;/access-settings></code></pre>
       </section>
       <section id="font-size">
         <h3>font-size</h3>
         <p>Pour activer le réglage de la taille du texte, utiliser l'attribut <code>font-size</code>.</p>
-        <pre><code class="language-html">&lt;access-settings dyslexic-font invert-colors contrast font-size>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings dyslexic-font invert-colors contrast font-size>
 &lt;/access-settings></code></pre>
       </section>
       <section id="line-height">
         <h3>line-height</h3>
         <p>Pour activer le réglage de la hauteur de ligne, utiliser l'attribut <code>line-height</code>.</p>
-        <pre><code class="language-html">&lt;access-settings dyslexic-font invert-colors contrast font-size line-height>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings dyslexic-font invert-colors contrast font-size line-height>
 &lt;/access-settings></code></pre>
       </section>
       <section id="side">
@@ -91,13 +101,13 @@
         <p>Par défaut le composant est placé sur le bord droit de l'écran. Pour le positionner à gauche,
           utiliser l'attribut <code>side="left"</code>
         </p>
-        <pre><code class="language-html">&lt;access-settings all side="left">
+        <pre><code class="language-html" tabindex="0">&lt;access-settings all side="left">
 &lt;/access-settings></code></pre>
       </section>
       <section id="rounded">
         <h3>rounded</h3>
         <p>Pour que le contour de l'icône soit arrondi, utiliser l'attribut <code>rounded</code></p>
-        <pre><code class="language-html">&lt;access-settings all side="left" rounded></code></pre>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings all side="left" rounded></code></pre>
       </section>
       <section id="lang">
         <h3>lang</h3>
@@ -105,12 +115,14 @@
         <p>Les langues disponibles sont français (<code>fr</code>), anglais (<code>en</code>) et espagnol (<code>es</code>).</p>
       </section>
     </section>
-    <section>
+    <section id="personnalisation">
       <h2>Personnalisation</h2>
       <section id="add-lang">
         <h3>Ajouter une langue</h3>
         <p>Vous pouvez ajouter la langue de votre choix de la façon suivante.</p>
-        <pre><code class="language-js">import { AccessSettings } from "https://cdn.jsdelivr.net/npm/access-settings";
+        <pre><code class="language-html" tabindex="0">&lt;!DOCTYPE html>
+&lt;html lang="oc"></code></pre>
+        <pre><code class="language-js" tabindex="0">import { AccessSettings } from "https://cdn.jsdelivr.net/npm/access-settings";
 
 AccessSettings.languages.oc = {
   "dyslexic-font": "Poliça disléxica",
@@ -125,7 +137,7 @@ AccessSettings.languages.oc = {
       <section id="position">
         <h3>Position</h3>
         <p>Vous pouvez définir le positionnement du composant.</p>
-<pre><code class="language-css">accessibility-settings {
+<pre><code class="language-css" tabindex="0">accessibility-settings {
   position:fixed;
   top:5px;
   right:5px;
@@ -137,14 +149,14 @@ définir la propriété css <code>left</code> plutôt que <code>right</code>.</p
       <section id="icon">
         <h3>Style de l'icône</h3>
         Vous pouvez personnaliser le style de l'icône en css
-        <pre><code class="language-css">access-settings::part(icon) {
+        <pre><code class="language-css" tabindex="0">access-settings::part(icon) {
   background-color: brown;
   fill:white;
 }</code></pre>
       </section>
       <section id="slot-icon">
         <h3>Changer d'icône</h3>
-        <pre><code class="language-html">&lt;access-settings all>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings all>
   &lt;span slot="icon">⚙︎&lt;/span>
 &lt;/access-settings></code></pre>
       </section>
@@ -152,7 +164,7 @@ définir la propriété css <code>left</code> plutôt que <code>right</code>.</p
       <section id="add-option">
         <h3>Ajouter des options</h3>
         Vous pouvez ajouter des options de la façon suivante :
-        <pre><code class="language-html">&lt;access-settings all>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings all>
   &lt;div slot="option">
     &lt;label>
       &lt;input type="checkbox" id="custom-input">
@@ -160,13 +172,14 @@ définir la propriété css <code>left</code> plutôt que <code>right</code>.</p
     &lt;/label>
   &lt;/div>
 &lt;/access-settings></code></pre>
-        <pre><code class="language-js">const input = document.querySelector("#custom-input");
+        <pre><code class="language-js" tabindex="0">const input = document.querySelector("#custom-input");
 input.addEventListener("change", () => {
   if (input.checked) alert("nouvelle option cochée");
 })</code></pre>
       </section>
     </section>
   </main>
+  <access-settings all></access-settings>
 </body>
 
 </html>

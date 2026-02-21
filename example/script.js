@@ -12,14 +12,15 @@ AccessSettings.languages.oc = {
 
 hljs.highlightAll();
 
-const access = document.createElement("access-settings");
-access.setAttribute("all","");
-document.body.append(access);
+const tableOfContent = document.querySelector("#table-of-content");
 
-const sections = document.querySelectorAll("main section[id]");
+const access = document.querySelector("access-settings");
+
+const sections = document.querySelectorAll("main section:not(:first-child) section[id]");
 
 function removeAttributes() {
-  for (const attr of access.attributes) {
+  const attrs = [...access.attributes]
+  for (const attr of attrs) {
     access.removeAttribute(attr.name);
   }
 }
@@ -32,9 +33,10 @@ function select(selected) {
 function reset() {
   removeAttributes();
   document.documentElement.lang = "fr";
-  access.open = true;
   style.innerHTML = "";
-  while (access.firstElementChild) access.firstElementChild.remove()
+  while (access.firstElementChild) access.firstElementChild.remove();
+  tableOfContent.style.left = "5px";
+  tableOfContent.style.right = "unset";
 }
 
 const style = document.createElement("style");
@@ -54,6 +56,7 @@ function handleIntersect(entries, observer) {
         break;
       case "all":
         access.setAttribute("all", "");
+        access.open = true;
         break;
       case "dyslexic-font":
         access.setAttribute("dyslexic-font", "");
@@ -83,6 +86,8 @@ function handleIntersect(entries, observer) {
       case "side":
         access.setAttribute("all", "");
         access.setAttribute("side", "left");
+        tableOfContent.style.right = "5px";
+        tableOfContent.style.left = "unset";
         break;
       case "rounded":
         access.setAttribute("all", "");
@@ -147,7 +152,7 @@ function handleIntersect(entries, observer) {
 
 let options = {
   root: null,
-  rootMargin: "-40% 0px -60% 0px"
+  rootMargin: "-30% 0px -70% 0px"
 };
 
 const observer = new IntersectionObserver(handleIntersect, options);
