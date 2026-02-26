@@ -97,6 +97,10 @@ function handleIntersect(entries, observer) {
         access.setAttribute("all", "");
         document.documentElement.lang = "en";
         break;
+      case "important":
+        access.setAttribute("all", "");
+        access.setAttribute("important", "");
+        break;
       case "add-lang":
         access.setAttribute("all", "");
         document.documentElement.lang = "oc";

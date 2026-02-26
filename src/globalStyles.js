@@ -16,19 +16,34 @@ globalStyles.innerHTML = /*css*/`
   :root.dyslexic {
     font-family:var(--access-font-family);
     h1,h2,h3,h4,h5,h6, body, header, footer, main, article, section, aside, p {
-      font-family:var(--access-font-family) !important;
+      font-family:var(--access-font-family);
+    }
+    &:has(access-settings[important]) {
+      h1,h2,h3,h4,h5,h6, body, header, footer, main, article, section, aside, p {
+        font-family:var(--access-font-family) !important;
+      }
     }
   }
   :root.lineHeight {
     line-height:var(--access-line-height);
     body, header, footer, main, article, section, aside, p {
-      line-height:var(--access-line-height) !important;
+      line-height:var(--access-line-height);
+    }
+    &:has(access-settings[important]) {
+      body, header, footer, main, article, section, aside, p {
+        line-height:var(--access-line-height) !important;
+      }
     }
   }
   :root.fontSize {
     font-size:var(--access-font-size);
     body, header, footer, main, article, section, aside, p {
-      font-size:1rem !important;
+      font-size:var(--access-font-size);
+    }
+    &:has(access-settings[important]) {
+      body, header, footer, main, article, section, aside, p {
+        font-size:var(--access-font-size) !important;
+      }
     }
   }
   :root.invertedColors {
