@@ -12,23 +12,9 @@ AccessSettings.languages.oc = {
 
 hljs.highlightAll();
 
-const tableOfContent = document.querySelector("#table-of-content");
-
 const access = document.querySelector("access-settings");
 
 const sections = document.querySelectorAll("main section:not(:first-child) section[id]");
-
-function handleTableOfContentVisibility() {
-  tableOfContent.style.visibility = "hidden";
-  tableOfContent.open = true;
-  const width = tableOfContent.getBoundingClientRect().width;
-  const marginLeft = getComputedStyle(document.querySelector("main")).marginLeft;
-  const hasEnoughSpace = Number.parseInt(marginLeft) > width;
-
-  tableOfContent.open = hasEnoughSpace;
-  tableOfContent.classList[hasEnoughSpace ? "add" : "remove"]("extended");
-  tableOfContent.style.visibility = "visible";
-}
 
 function hasEnoughSpaceForComponent() {
   const _open = access.open;
@@ -43,13 +29,11 @@ function hasEnoughSpaceForComponent() {
   return Number.parseInt(marginRight) > width;
 }
 
-addEventListener("resize", handleTableOfContentVisibility);
-
 access.addEventListener("change", e => {
-  if (e.detail.prop === "fontSize") handleTableOfContentVisibility();
+  if (e.detail.prop === "fontSize") {
+    document.querySelector("table-of-content").handleVisibility();
+  }
 })
-
-handleTableOfContentVisibility();
 
 function demoChange(e) {
   const { prop, value, preferences } = e.detail;

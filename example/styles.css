@@ -37,6 +37,7 @@ a {
 }
 main {
   margin:auto;
+  margin-top:3rem;
   max-width:80ch;
   padding-left:1.6ch;
 }
@@ -49,53 +50,5 @@ section.selected {
 }
 code {
   background-color:var(--foreground);
-}
-#table-of-content {
-  position:absolute;
-  left:5px;
-  top:0.5rem;
-  &.extended {
-    left:0;
-    top: 3.2rem;
-    summary {
-      display:none;
-    }
-    nav {
-      border-radius:0;
-      border-top:none;
-      height:calc(100vh - 3.2rem);
-      max-height:unset;
-    }
-  }
-  &.right {
-    left:unset;
-    right:5px;
-  }
-  summary {
-    cursor:pointer;
-    font-size: 1.5rem;
-    &::marker {
-      content:"";
-    }
-  }
-  nav {
-    border-radius:5px;
-    border:1px solid var(--border);
-    background-color: var(--foreground);
-    max-height:90vh;
-    overflow-y:auto;
-    > ul {
-      padding-left: 2rem;
-      margin-right: 1rem;
-      > li {
-        font-weight:bold;
-        margin-top:1rem;
-      }
-      ul {
-        font-weight:normal;
-        padding-left: 1rem;
-      }
-    }
-  }
 }
 
