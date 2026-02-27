@@ -5,19 +5,6 @@ style.innerHTML = /*css*/ `
     position:absolute;
     left:5px;
     top:0.5rem;
-    &.extended {
-      left:0;
-      top: 3.2rem;
-      summary {
-        display:none;
-      }
-      nav {
-        border-radius:0;
-        border-top:none;
-        height:calc(100vh - 3.2rem);
-        max-height:unset;
-      }
-    }
     &.right {
       left:unset;
       right:5px;
@@ -46,6 +33,19 @@ style.innerHTML = /*css*/ `
           font-weight:normal;
           padding-left: 1rem;
         }
+      }
+    }
+    &.extended {
+      left:0;
+      top: 3.3rem;
+      summary {
+        display:none;
+      }
+      nav {
+        border-radius:0;
+        height:calc(100vh - 3.2rem);
+        max-height:unset;
+        background-color: var(--background);
       }
     }
   }
