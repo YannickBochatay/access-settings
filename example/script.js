@@ -84,23 +84,18 @@ function handleIntersect(entries, observer) {
         access.setAttribute("dyslexic-font", "");
         break;
       case "invert-colors":
-        access.setAttribute("dyslexic-font", "");
         access.setAttribute("invert-colors", "");
         break;
       case "contrast":
-        access.setAttribute("dyslexic-font", "");
-        access.setAttribute("invert-colors", "");
         access.setAttribute("contrast", "");
         break;
       case "font-size":
-        access.setAttribute("dyslexic-font", "");
-        access.setAttribute("invert-colors", "");
-        access.setAttribute("contrast", "");
         access.setAttribute("font-size", "");
         break;
       case "line-height":
-        access.setAttribute("dyslexic-font", "");
-        access.setAttribute("invert-colors", "");
+        access.setAttribute("line-height", "");
+        break;
+      case "combinaison":
         access.setAttribute("contrast", "");
         access.setAttribute("font-size", "");
         access.setAttribute("line-height", "");
@@ -174,6 +169,8 @@ function handleIntersect(entries, observer) {
         access.setAttribute("all", "");
         access.addEventListener("change", demoChange);
         break;
+      default:
+        access.setAttribute("all", "");
     }
   });
 }

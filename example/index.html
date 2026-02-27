@@ -9,7 +9,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css">
   <link rel="stylesheet" href="styles.css">
   <script src="../src/index.js" type="module"></script>
-  <script src="table-of-content.js" type="module"></script>
+  <script src="components/table-of-content.js" type="module"></script>
+  <script src="components/bookmarklet.js" type="module"></script>
   <script src="script.js" type="module"></script>
   <title>Access Settings</title>
 </head>
@@ -20,38 +21,67 @@
     <table-of-content></table-of-content>
   </header>
   <main>
-    <section id="installation">
-      <h2>Installation</h2>
+    <section id="demarrage">
+      <h2>Démarrage rapide</h2>
+      <section id="developpeur">
+        <h3>Développeur-se</h3>
+        <p>Ajouter l'appel du script dans la balise <code>&lt;head></code> de votre page html : </p>
+        <pre><code class="language-html" tabindex="0">&lt;script
+  src="https://cdn.jsdelivr.net/npm/access-settings"
+  type="module"
+></code></pre>
+        <p>Puis insérer le composant en fin de balise <code>&lt;body></code> :</p>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings all>&lt;/access-settings></code></pre>
+        <p>Et le tour est joué ! Pour une utilisation plus avancée,
+          vous pouvez parcourir la suite de cette documentation.</p>
+      </section>
+      <section id="internaute">
+        <h3>Internaute <sup>(βeta)</sup></h3>
+        <p>Vous pouvez utiliser le composant <code>&lt;access-settings></code>
+        en tant que <a href="https://fr.wikipedia.org/wiki/Bookmarklet">bookmarklet</a>.</p>
+        <p>Pour cela, faites glisser le bouton suivant jusqu'à votre barre de favoris :</p>
+        <bookmarklet-me></bookmarklet-me>
+        <p>Sur n'importe quelle page web, vous pourrez cliquer sur ce favori pour configuer vos préférences
+          d'accessibilité.
+        </p>
+        <p><strong>Avertissement</strong> : selon la politique de sécurité de la page visitée ainsi
+        que la qualité du code css, il se peut que le composant ne puisse pas se charger ou ne fonctionne pas correctement.</p>
+      </section>
+    </section>
+T détaillée<    <section id="installation">
+      <h2>Types d'installation</h2>
       <section id="cdn">
         <h3>CDN</h3>
-        La façon la plus simple et la plus rapide.
+        Comme indiqué plus haut, l'utilisation d'un serveur CDN est la façon la plus simple et la plus rapide d'installer le composant.
         <pre><code class="language-html" tabindex="0">&lt;!DOCTYPE html>
 &lt;html lang="fr">
   &lt;head>
     &lt;meta charset="UTF-8">
     &lt;title>My accessible page&lt;/title>
-    &lt;script src="https://cdn.jsdelivr.net/npm/access-settings">
+    &lt;script
+      src="https://cdn.jsdelivr.net/npm/access-settings"
+      type="module"
+    >
     &lt;/script>
   &lt;/head>
   &lt;body>
     &lt;access-settings all>&lt;/access-settings>
   &lt;/body>
 &lt;/html></code></pre>
-          Dans la plupart des cas vous pouvez vous arrêter là ! Mais si vous le souhaitez le composant est
-          entièrement configurable comme expliqué dans la suite de cette documentation.
       </section>
       <section id="npm">
         <h3>NPM</h3>
+        Vous pouvez aussi installer le composant par NPM.
         <pre><code class="language-sh" tabindex="0">npm install access-settings</code></pre>
         <pre><code class="language-html" tabindex="0">&lt;script src="node_modules/access-settings/dist/index.js">&lt;/script></code></pre>
       </section>
       <section id="direct-download">
         <h3>Téléchargement direct</h3>
-        Vous pouvez télécharger directement le <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">fichier sur GitHub</a>.
+        Ou encore télécharger directement le <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">fichier sur GitHub</a>.
       </section>
     </section>
     <section id="utilisation">
-      <h2>Utilisation</h2>
+      <h2>Options d'utilisation</h2>
       <section id="all">
         <h3>all</h3>
       <p>Pour afficher toutes les options, utiliser l'attribut <code>all</code>.</p>
@@ -67,25 +97,31 @@
       <section id="invert-colors">
         <h3>invert-colors</h3>
         <p>Pour activer l'option d'inversion des couleurs, utiliser l'attribut <code>invert-colors</code>.</p>
-        <pre><code class="language-html" tabindex="0">&lt;access-settings dyslexic-font invert-colors>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings invert-colors>
 &lt;/access-settings></code></pre>
       </section>
       <section id="contrast">
         <h3>contrast</h3>
         <p>Pour activer le réglage du contraste, utiliser l'attribut <code>contrast</code>.</p>
-        <pre><code class="language-html" tabindex="0">&lt;access-settings dyslexic-font invert-colors contrast>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings contrast>
 &lt;/access-settings></code></pre>
       </section>
       <section id="font-size">
         <h3>font-size</h3>
         <p>Pour activer le réglage de la taille du texte, utiliser l'attribut <code>font-size</code>.</p>
-        <pre><code class="language-html" tabindex="0">&lt;access-settings dyslexic-font invert-colors contrast font-size>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings font-size>
 &lt;/access-settings></code></pre>
       </section>
       <section id="line-height">
         <h3>line-height</h3>
         <p>Pour activer le réglage de la hauteur de ligne, utiliser l'attribut <code>line-height</code>.</p>
-        <pre><code class="language-html" tabindex="0">&lt;access-settings dyslexic-font invert-colors contrast font-size line-height>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings line-height>
+&lt;/access-settings></code></pre>
+      </section>
+      <section id="combinaison">
+        <h3>combinaison</h3>
+        <p>Vous pouvez bien sûr utiliser une combinaison de ces options.</p>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings contrast font-size line-height>
 &lt;/access-settings></code></pre>
       </section>
       <section id="side">
@@ -99,7 +135,7 @@
       <section id="rounded">
         <h3>rounded</h3>
         <p>Pour que le contour de l'icône soit arrondi, utiliser l'attribut <code>rounded</code></p>
-        <pre><code class="language-html" tabindex="0">&lt;access-settings all side="left" rounded></code></pre>
+        <pre><code class="language-html" tabindex="0">&lt;access-settings all rounded></code></pre>
       </section>
       <section id="lang">
         <h3>lang</h3>
