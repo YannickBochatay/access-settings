@@ -199,11 +199,11 @@ définir la propriété css <code>left</code> plutôt que <code>right</code>.</p
 
       <section id="styles">
         <h3>Style des éléments</h3>
-        <p>Les pseudo-classes
+        <p>Les pseudo-éléments
           <a href="https://developer.mozilla.org/fr/docs/Web/CSS/Reference/Selectors/::part">
             <code>::part</code>
           </a>
-          suivantes vous permettent de personnaliser entièrement le style du composant :
+          suivants vous permettent de personnaliser entièrement le style du composant :
         </p>
         <ul>
           <li><strong>details</strong> : élément html <code>&lt;details></code> global
@@ -251,6 +251,13 @@ définir la propriété css <code>left</code> plutôt que <code>right</code>.</p
             </ul>
           </li>
         </ul>
+        <h4>Exemple</h4>
+        <pre><code class="language-css">access-settings::part(line-height) {
+  background-color:violet;
+}
+access-settings::part(font-size-label) {
+  font-weight:bold;
+}</code></pre>
       </section>
 
       <section id="add-option">

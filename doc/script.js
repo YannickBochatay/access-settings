@@ -131,7 +131,7 @@ function handleIntersect(entries, observer) {
         break;
       case "icon":
         access.setAttribute("all", "");
-        style.innerHTML = `
+        style.innerHTML = /*css*/`
           access-settings::part(icon) {
             background-color: brown;
             fill:white;
@@ -147,6 +147,17 @@ function handleIntersect(entries, observer) {
         access.append(icon);
         break;
       }
+      case "styles":
+        access.setAttribute("all", "");
+        style.innerHTML = /*css*/`
+          access-settings::part(line-height) {
+            background-color:violet;
+          }
+          access-settings::part(font-size-label) {
+            font-weight:bold;
+          }
+        `;
+        break;
       case "add-option": {
         access.setAttribute("all", "");
         const option = document.createElement("div");
