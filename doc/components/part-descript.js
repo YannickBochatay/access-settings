@@ -1,15 +1,15 @@
 const template = document.createElement("template");
 
 template.innerHTML = `
-  <strong class="field-name"></strong> : conteneur du champ <span class="field-descript"></span>
+  <strong class="field-name"></strong> : élément <code>&lt;div></code> du champ <span class="field-descript"></span>
   <ul>
     <li>
       <strong><span class="field-name"></span>-input</strong> :
-      champ <code>&lt;input></code> du champ <span class="field-descript"></span>
+      élément <code>&lt;input></code> du champ <span class="field-descript"></span>
     </li>
     <li>
       <strong><span class="field-name"></span>-label</strong> :
-      libellé du champ <span class="field-descript"></span>
+      élément <code>&lt;label></code> du champ <span class="field-descript"></span>
     </li>
   </ul>
 `
