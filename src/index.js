@@ -61,9 +61,9 @@ export class AccessSettings extends HTMLElement {
 
     this.#fontField.addEventListener("change", e => preferences.dyslexicFont = e.target.checked);
     this.#colorsField.addEventListener("change", e => preferences.invertedColors = e.target.checked);
-    this.#contrastField.addEventListener("change", e => preferences.contrast = Number(e.target.value));
-    this.#fontSizeField.addEventListener("change", e => preferences.fontSize = Number(e.target.value));
-    this.#lineHeightField.addEventListener("change", e => preferences.lineHeight = Number(e.target.value));
+    this.#contrastField.addEventListener("change", this.#handleChangeNumValue("contrast"));
+    this.#fontSizeField.addEventListener("change", this.#handleChangeNumValue("fontSize"));
+    this.#lineHeightField.addEventListener("change", this.#handleChangeNumValue("lineHeight"));
 
     root.querySelector("#reset").addEventListener("click", () => {
       resetPrefs();
@@ -76,6 +76,12 @@ export class AccessSettings extends HTMLElement {
         if (mutation.attributeName === 'lang') this.handleLangChange();
       }
     });
+  }
+
+  #handleChangeNumValue(prop) {
+    return e => {
+      if (e.target.checkValidity()) preferences[prop] = Number(e.target.value)
+    }
   }
 
   #triggerEvent(prop, value) {

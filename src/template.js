@@ -38,11 +38,11 @@ template.innerHTML = `
         <label for="contrast" part="contrast-label">Contraste</label>
       </div>
       <div class="field" part="font-size">
-        <input type="number" id="font-size" part="font-size-input">
+        <input type="number" id="font-size" part="font-size-input" min="8" max="30">
         <label for="font-size" part="font-size-label">Taille de police</label>
       </div>
       <div class="field" part="line-height">
-        <input type="number" id="line-height" step="0.1" part="line-height-input">
+        <input type="number" id="line-height" step="0.1" part="line-height-input" min="0.8" max="3">
         <label for="line-height" part="line-height-label">Interligne</label>
       </div>
       <slot name="option"></slot>

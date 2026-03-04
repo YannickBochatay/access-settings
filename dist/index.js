@@ -85,23 +85,14 @@
   // src/createState.js
   function createState(initialState) {
     const listeners = [];
-    function createProxy(target) {
-      return new Proxy(target, {
-        set(target2, prop, value) {
-          target2[prop] = value;
-          listeners.forEach((callback) => callback(String(prop), value));
-          return true;
-        },
-        get(target2, prop) {
-          if (prop === "_isProxy") return true;
-          if (target2[prop]?._isProxy) return target2[prop];
-          if (target2[prop] && typeof target2[prop] === "object") return createProxy(target2[prop]);
-          return target2[prop];
-        }
-      });
-    }
     return {
-      state: createProxy(initialState),
+      state: new Proxy(initialState, {
+        set(target, prop, value) {
+          target[prop] = value;
+          listeners.forEach((callback) => callback(prop, value));
+          return true;
+        }
+      }),
       onStateChange(callback) {
         listeners.push(callback);
       },
@@ -336,11 +327,11 @@
         <label for="contrast" part="contrast-label">Contraste</label>
       </div>
       <div class="field" part="font-size">
-        <input type="number" id="font-size" part="font-size-input">
+        <input type="number" id="font-size" part="font-size-input" min="8" max="30">
         <label for="font-size" part="font-size-label">Taille de police</label>
       </div>
       <div class="field" part="line-height">
-        <input type="number" id="line-height" step="0.1" part="line-height-input">
+        <input type="number" id="line-height" step="0.1" part="line-height-input" min="0.8" max="3">
         <label for="line-height" part="line-height-label">Interligne</label>
       </div>
       <slot name="option"></slot>
@@ -432,9 +423,9 @@
       this.#lineHeightField = root2.querySelector("#line-height");
       this.#fontField.addEventListener("change", (e) => preferences.dyslexicFont = e.target.checked);
       this.#colorsField.addEventListener("change", (e) => preferences.invertedColors = e.target.checked);
-      this.#contrastField.addEventListener("change", (e) => preferences.contrast = Number(e.target.value));
-      this.#fontSizeField.addEventListener("change", (e) => preferences.fontSize = Number(e.target.value));
-      this.#lineHeightField.addEventListener("change", (e) => preferences.lineHeight = Number(e.target.value));
+      this.#contrastField.addEventListener("change", this.#handleChangeNumValue("contrast"));
+      this.#fontSizeField.addEventListener("change", this.#handleChangeNumValue("fontSize"));
+      this.#lineHeightField.addEventListener("change", this.#handleChangeNumValue("lineHeight"));
       root2.querySelector("#reset").addEventListener("click", () => {
         resetPrefs();
         removeConfig();
@@ -445,6 +436,11 @@
           if (mutation.attributeName === "lang") this.handleLangChange();
         }
       });
+    }
+    #handleChangeNumValue(prop) {
+      return (e) => {
+        if (e.target.checkValidity()) preferences[prop] = Number(e.target.value);
+      };
     }
     #triggerEvent(prop, value) {
       const event = new CustomEvent("change", {
