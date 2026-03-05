@@ -56,7 +56,6 @@ function select(selected) {
 }
 function reset() {
   removeAttributes();
-  document.documentElement.lang = "fr";
   style.innerHTML = "";
   while (access.firstElementChild) access.firstElementChild.remove();
   access.removeEventListener("change", demoChange);
@@ -110,7 +109,7 @@ function handleIntersect(entries, observer) {
         break;
       case "lang":
         access.setAttribute("all", "");
-        document.documentElement.lang = "en";
+        access.setAttribute("lang", "es");
         break;
       case "important":
         access.setAttribute("all", "");
@@ -118,13 +117,13 @@ function handleIntersect(entries, observer) {
         break;
       case "add-lang":
         access.setAttribute("all", "");
-        document.documentElement.lang = "oc";
+        access.setAttribute("lang", "oc");
         break;
       case "position":
         access.setAttribute("all", "");
-        style.innerHTML = `
+        style.innerHTML = /*css*/`
           access-settings {
-            top:5px;
+            top:4rem;
             right:5px;
           }
         `

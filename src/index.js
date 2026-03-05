@@ -41,6 +41,8 @@ export class AccessSettings extends HTMLElement {
     }
   })
 
+  static observedAttributes = ["lang"]
+
   #fontField
   #colorsField
   #contrastField
@@ -104,6 +106,10 @@ export class AccessSettings extends HTMLElement {
     this.shadowRoot.querySelector("details").open = value;
   }
 
+  get lang() {
+    return this.getAttribute("lang") || document.documentElement.lang || "en";
+  }
+
   #handleStateChange = (prop, value) => {
     this.#fontField.checked = preferences.dyslexicFont;
     this.#colorsField.checked = preferences.invertedColors;
@@ -114,18 +120,13 @@ export class AccessSettings extends HTMLElement {
     if (prop) this.#triggerEvent(prop, value);
   }
 
-  #parseLang() {
-    const attr = document.documentElement.lang;
-
-    if (!attr) return "en";
-
+  #parseLang(attr) {
     return /^(\w+)(-\w+){0,2}$/.exec(attr)?.[1] || "en";
   }
 
   handleLangChange() {
-    const lang = this.#parseLang();
     const { languages } = this.constructor;
-    const locale = languages[lang] ?? languages.en;
+    const locale = languages[this.lang] ?? languages[this.#parseLang(this.lang)] ?? languages.en;
     const labels = this.shadowRoot.querySelectorAll("label");
 
     for (let label of labels) {
@@ -148,6 +149,10 @@ export class AccessSettings extends HTMLElement {
   disconnectedCallback() {
     offStateChange(this.#handleStateChange);
     this.#observer.disconnect();
+  }
+
+  attributeChangedCallback(prop) {
+    if (prop === "lang") this.handleLangChange();
   }
 }
 
