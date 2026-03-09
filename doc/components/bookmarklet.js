@@ -16,7 +16,7 @@ function addAccessSettings() {
 const style = document.createElement("style");
 
 style.innerHTML = /*css*/`
-  #bookmarklet {
+  #bookmarklet-link {
     display:inline-block;
     padding:0.5rem 1rem;
     background-color:var(--link);
@@ -32,7 +32,7 @@ class Bookmarklet extends HTMLElement {
   constructor() {
     super()
     this.innerHTML = `
-      <a id="bookmarklet" href="javascript:(${addAccessSettings.toString()})()">
+      <a id="bookmarklet-link" href="javascript:(${addAccessSettings.toString()})()">
         Access settings
       </a>
     `

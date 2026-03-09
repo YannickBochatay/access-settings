@@ -6,7 +6,9 @@
   "scripts": {
     "build-max": "esbuild src/index.js --bundle --outfile=dist/index.js",
     "build-min": "esbuild src/index.js --bundle --minify --outfile=dist/index.min.js",
-    "build": "npm run build-max && npm run build-min",
+    "build-api": "esbuild src/settings/index.js --bundle --outfile=dist/api.js",
+    "build-api-min": "esbuild src/settings/index.js --bundle --minify --outfile=dist/api.min.js",
+    "build": "npm run build-max && npm run build-min && npm run build-api && npm run build-api-min",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
