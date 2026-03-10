@@ -115,25 +115,17 @@
 
   // src/settings/settings.js
   var root2 = document.documentElement;
-  var listeners = [];
-  var settings = {
-    addListener(callback) {
-      if (!listeners.includes(callback)) listeners.push(callback);
-    },
-    removeListener(callback) {
-      const index = listeners.indexOf(callback);
-      if (index !== -1) listeners.splice(index, 1);
-    },
-    reset() {
-      for (let key in initialValues) {
-        if (this[key] !== initialValues[key]) this[key] = initialValues[key];
-        root2.classList.remove("fontSize", "lineHeight", "contrast");
-      }
+  var settings = new EventTarget();
+  settings.reset = function() {
+    for (let key in initialValues) {
+      if (this[key] !== initialValues[key]) this[key] = initialValues[key];
+      root2.classList.remove("fontSize", "lineHeight", "contrast");
     }
   };
   function setValue(prop, value) {
     settings["_" + prop] = value;
-    listeners.forEach((listener) => listener(prop, value));
+    settings.dispatchEvent(new Event("change"));
+    settings.dispatchEvent(new CustomEvent(`change-${prop}`));
   }
   function setBooleanValue(prop, value) {
     if (typeof value !== "boolean") throw new TypeError(`${prop} value must be a boolean`);
@@ -545,7 +537,7 @@
     connectedCallback() {
       this.#handleStateChange();
       this.handleLangChange();
-      settings.addListener(this.#handleStateChange);
+      settings.addEventListener("change", this.#handleStateChange);
       settings.load();
       this.#observer.observe(document.documentElement, { attributes: true });
     }

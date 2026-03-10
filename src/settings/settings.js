@@ -2,27 +2,19 @@ import { toDashCase, getInitialFontSize, getInitialLineHeight } from "./utils.js
 
 const root = document.documentElement;
 
-const listeners = [];
+export const settings = new EventTarget();
 
-export const settings = {
-  addListener(callback) {
-    if (!listeners.includes(callback)) listeners.push(callback);
-  },
-  removeListener(callback) {
-    const index = listeners.indexOf(callback);
-    if (index !== -1) listeners.splice(index, 1);
-  },
-  reset() {
-    for (let key in initialValues) {
-      if (this[key] !== initialValues[key]) this[key] = initialValues[key];
-      root.classList.remove("fontSize", "lineHeight", "contrast");
-    }
+settings.reset = function() {
+  for (let key in initialValues) {
+    if (this[key] !== initialValues[key]) this[key] = initialValues[key];
+    root.classList.remove("fontSize", "lineHeight", "contrast");
   }
 };
 
 function setValue(prop, value) {
   settings["_"+prop] = value;
-  listeners.forEach(listener => listener(prop, value));
+  settings.dispatchEvent(new Event("change"));
+  settings.dispatchEvent(new CustomEvent(`change-${prop}`));
 }
 
 function setBooleanValue(prop, value) {
@@ -100,3 +92,4 @@ Object.defineProperties(settings, {
   }
 });
  
+export default settings;

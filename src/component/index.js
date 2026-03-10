@@ -117,7 +117,7 @@ export class AccessSettings extends HTMLElement {
   connectedCallback() {
     this.#handleStateChange();
     this.handleLangChange();
-    settings.addListener(this.#handleStateChange);
+    settings.addEventListener("change", this.#handleStateChange);
     settings.load();
     this.#observer.observe( document.documentElement, { attributes: true });
   }
@@ -134,3 +134,5 @@ export class AccessSettings extends HTMLElement {
 
 
 customElements.define('access-settings', AccessSettings);
+
+export default AccessSettings;
