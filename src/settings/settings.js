@@ -50,7 +50,7 @@ function setNumberValue(prop, value, unit="") {
 
 const initialValues = {
   dyslexicFont : false,
-  invertedColors : false,
+  invertColors : false,
   contrast : 100,
   fontSize : getInitialFontSize(),
   lineHeight : getInitialLineHeight()
@@ -68,7 +68,7 @@ Object.defineProperties(settings, {
   initialValues : { value : initialValues },
 
   _dyslexicFont : { writable : true, value : initialValues.dyslexicFont },
-  _invertedColors : { writable : true, value : initialValues.invertedColors },
+  _invertColors : { writable : true, value : initialValues.invertColors },
   _contrast : { writable : true, value : initialValues.contrast },
   _fontSize : { writable : true, value : initialValues.fontSize },
   _lineHeight : { writable : true, value : initialValues.lineHeight },
@@ -89,10 +89,10 @@ Object.defineProperties(settings, {
     get() { return this._dyslexicFont },
     set(value) { setBooleanValue("dyslexicFont", value); }
   },
-  invertedColors : {
+  invertColors : {
     enumerable:true,
-    get() { return this._invertedColors },
-    set(value) { setBooleanValue("invertedColors", value); }
+    get() { return this._invertColors },
+    set(value) { setBooleanValue("invertColors", value); }
   },
   contrast : {
     enumerable:true,

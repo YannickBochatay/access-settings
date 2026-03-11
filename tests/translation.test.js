@@ -11,7 +11,7 @@ QUnit.module('component', hooks => {
 
     AccessSettings.languages.oc = {
       "dyslexic-font": "Poliça disléxica",
-      "inverted-colors": "Colors invertidas",
+      "invert-colors": "Colors invertidas",
       "contrast": "Contraste",
       "font-size": "Talha de poliça",
       "line-height": "Nautor de linha",

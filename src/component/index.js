@@ -29,13 +29,13 @@ export class AccessSettings extends HTMLElement {
     root.append(template.content.cloneNode(true));
 
     this.#fontField = root.querySelector("#dyslexic-font");
-    this.#colorsField = root.querySelector("#inverted-colors");
+    this.#colorsField = root.querySelector("#invert-colors");
     this.#contrastField = root.querySelector("#contrast");
     this.#fontSizeField = root.querySelector("#font-size");
     this.#lineHeightField = root.querySelector("#line-height");
 
     this.#fontField.addEventListener("change", e => settings.dyslexicFont = e.target.checked);
-    this.#colorsField.addEventListener("change", e => settings.invertedColors = e.target.checked);
+    this.#colorsField.addEventListener("change", e => settings.invertColors = e.target.checked);
     this.#contrastField.addEventListener("change", this.#handleChangeNumValue("contrast"));
     this.#fontSizeField.addEventListener("change", this.#handleChangeNumValue("fontSize"));
     this.#lineHeightField.addEventListener("change", this.#handleChangeNumValue("lineHeight"));
@@ -85,7 +85,7 @@ export class AccessSettings extends HTMLElement {
 
   #handleStateChange = (prop, value) => {
     this.#fontField.checked = settings.dyslexicFont;
-    this.#colorsField.checked = settings.invertedColors;
+    this.#colorsField.checked = settings.invertColors;
     this.#contrastField.value = String(settings.contrast);
     this.#fontSizeField.value = String(settings.fontSize);
     this.#lineHeightField.value = String(settings.lineHeight);

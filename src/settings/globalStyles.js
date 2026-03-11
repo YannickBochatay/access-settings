@@ -46,7 +46,7 @@ globalStyles.innerHTML = /*css*/`
       }
     }
   }
-  :root.invertedColors {
+  :root.invertColors {
     &:not(.contrast) {
       filter:invert(1);
     }
@@ -55,7 +55,7 @@ globalStyles.innerHTML = /*css*/`
     }
   }
   :root.contrast {
-    &:not(.invertedColors) {
+    &:not(.invertColors) {
       filter:contrast(var(--access-contrast));
     }
   }
@@ -68,7 +68,7 @@ globalStyles.innerHTML = /*css*/`
       &.contrasted {
         filter:invert(1) contrast(var(--access-contrast));
       }
-      &.invertedColors {
+      &.invertColors {
         &:not(.contrast) {
           filter:invert(0);
         }

@@ -34,8 +34,10 @@
   <main>
     <section id="presentation">
       <h2>Présentation</h2>
-      <p><code>access-settings</code> est un composant web autonome pour ajouter sans effort des options d'accessibilité à vos sites web.</p>
-      <p>Il est basé sur une API qu'il est possible d'utiliser indépendamment pour une intégration avancée.</p>
+      <p lang="fr"><code>access-settings</code> est un composant web autonome pour ajouter sans effort des options d'accessibilité à vos sites web.</p>
+      <p lang="en"><code>access-settings</code> is a standalone web component to effortlessly add accessibility options to your websites.</p>
+      <p lang="fr">Il est basé sur une API qu'il est possible d'utiliser indépendamment pour une intégration avancée.</p>
+      <p lang="en">It is based on an API that can be used independently for advanced integration.</p>
     </section>
 
     <section id="demarrage">
@@ -58,9 +60,10 @@
 
         <pre><code class="language-html" tabindex="0">&lt;access-settings all>&lt;/access-settings></code></pre>
 
-        <p lang="fr">Et le tour est joué ! Pour une utilisation plus avancée,
-          vous pouvez parcourir la suite de cette documentation.</p>
-        <p lang="en">And it's all done! For more advanced use, You can browse the rest of this documentation.</p>
+        <p lang="fr">Et le tour est joué ! Sur la droite de votre écran apparaît l'icône de configuration de vos préférences.</p>
+        <p lang="en">And it's all done! On the right of your screen appears the icon of setting up your preferences.</p>
+        <p lang="fr">Pour une utilisation plus avancée, vous pouvez parcourir la suite de cette documentation.</p>
+        <p lang="en">For more advanced use, you can browse the rest of this documentation.</p>
 
       </section>
 
@@ -101,13 +104,16 @@ const checkBox = document.querySelector("#myCheckBox");
 checkBox.addEventListener("change", e => {
   accessSettings.dyslexicFont = e.target.checked;
 });</code></pre>
+        <strong lang="fr">Rendu :</strong>
+        <strong lang="en">Rendered :</strong>
         <label>
           <input type="checkbox" id="myCheckBox">
           <span lang="fr">Appliquer la police dyslexie</span>
           <span lang="en">Apply the dyslexia font</span>
         </label>
         <p>
-          <a href="#api-doc">Détails de l'API</a>
+          <a href="#api-doc" lang="fr">Détails de l'API</a>
+          <a href="#api-doc" lang="en">API details</a>
         </p>
     </section>
 
@@ -146,15 +152,14 @@ checkBox.addEventListener("change", e => {
         <p lang="en">You can also install the component by NPM.</p>
 
         <pre><code class="language-sh" tabindex="0">npm install access-settings</code></pre>
-        <pre><code class="language-html" tabindex="0">&lt;script src="node_modules/access-settings/dist/index.js">&lt;/script></code></pre>
       </section>
 
       <section id="direct-download">
         <h3 lang="fr">Téléchargement direct</h3>
         <h3 lang="en">Direct download</h3>
 
-        <p lang="fr">Ou encore télécharger directement le <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">fichier sur GitHub</a>.</p>
-        <p lang="en">Or download directly the <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">file on GitHub</a>.</p>
+        <p lang="fr">Ou encore télécharger directement le <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">fichier</a> sur GitHub,
+          ou uniquement l'<a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/api.js">API</a>.</p>
       </section>
     </section>
 
@@ -297,7 +302,7 @@ checkBox.addEventListener("change", e => {
 
 AccessSettings.languages.oc = {
   "dyslexic-font": "Poliça disléxica",
-  "inverted-colors": "Colors invertidas",
+  "invert-colors": "Colors invertidas",
   "contrast": "Contraste",
   "font-size": "Talha de poliça",
   "line-height": "Nautor de linha",
@@ -463,7 +468,7 @@ access.addEventListener("change", e => {
         <pre><code class="language-js" tabindex="0">import { settings } from "https://cdn.jsdelivr.net/npm/access-settings";
 
 settings.dyslexicFont = true;
-settings.invertedColors = false;
+settings.invertColors = false;
 settings.contrast = 110;
 settings.fontSize = 18;
 settings.lineHeight = 1.6;</code></pre>

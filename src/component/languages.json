@@ -1,7 +1,7 @@
 {
     "fr" : {
       "dyslexic-font" : "Police dyslexie",
-      "inverted-colors" : "Couleurs inversées",
+      "invert-colors" : "Couleurs inversées",
       "contrast" : "Contraste",
       "font-size" : "Taille de police",
       "line-height" : "Hauteur de ligne",
@@ -10,7 +10,7 @@
     },
     "en" : {
       "dyslexic-font" : "Dyslexic font",
-      "inverted-colors" : "Inverted colors",
+      "invert-colors" : "Inverted colors",
       "contrast" : "Contrast",
       "font-size" : "Font size",
       "line-height" : "Line height",
@@ -19,7 +19,7 @@
     },
     "es": {
       "dyslexic-font": "Fuente disléxica",
-      "inverted-colors": "Colores invertidos",
+      "invert-colors": "Colores invertidos",
       "contrast": "Contraste",
       "font-size": "Tamaño de fuente",
       "line-height": "Altura de línea",

@@ -47,7 +47,7 @@
       }
     }
   }
-  :root.invertedColors {
+  :root.invertColors {
     &:not(.contrast) {
       filter:invert(1);
     }
@@ -56,7 +56,7 @@
     }
   }
   :root.contrast {
-    &:not(.invertedColors) {
+    &:not(.invertColors) {
       filter:contrast(var(--access-contrast));
     }
   }
@@ -69,7 +69,7 @@
       &.contrasted {
         filter:invert(1) contrast(var(--access-contrast));
       }
-      &.invertedColors {
+      &.invertColors {
         &:not(.contrast) {
           filter:invert(0);
         }
@@ -145,7 +145,7 @@
   }
   var initialValues = {
     dyslexicFont: false,
-    invertedColors: false,
+    invertColors: false,
     contrast: 100,
     fontSize: getInitialFontSize(),
     lineHeight: getInitialLineHeight()
@@ -160,7 +160,7 @@
     },
     initialValues: { value: initialValues },
     _dyslexicFont: { writable: true, value: initialValues.dyslexicFont },
-    _invertedColors: { writable: true, value: initialValues.invertedColors },
+    _invertColors: { writable: true, value: initialValues.invertColors },
     _contrast: { writable: true, value: initialValues.contrast },
     _fontSize: { writable: true, value: initialValues.fontSize },
     _lineHeight: { writable: true, value: initialValues.lineHeight },
@@ -184,13 +184,13 @@
         setBooleanValue("dyslexicFont", value);
       }
     },
-    invertedColors: {
+    invertColors: {
       enumerable: true,
       get() {
-        return this._invertedColors;
+        return this._invertColors;
       },
       set(value) {
-        setBooleanValue("invertedColors", value);
+        setBooleanValue("invertColors", value);
       }
     },
     contrast: {
@@ -399,8 +399,8 @@
         <label for="dyslexic-font" part="dyslexic-font-label">Police dyslexie</label>
       </div>
       <div class="field" part="invert-colors">
-        <input type="checkbox" id="inverted-colors" part="invert-colors-input">
-        <label for="inverted-colors" part="invert-colors-label">Couleurs invers\xE9es</label>
+        <input type="checkbox" id="invert-colors" part="invert-colors-input">
+        <label for="invert-colors" part="invert-colors-label">Couleurs invers\xE9es</label>
       </div>
       <div class="field" part="contrast">
         <input type="number" step="10" id="contrast" min="${bounds.contrast[0]}" max="${bounds.contrast[1]}" part="contrast-input">
@@ -427,7 +427,7 @@
   var languages_default = {
     fr: {
       "dyslexic-font": "Police dyslexie",
-      "inverted-colors": "Couleurs invers\xE9es",
+      "invert-colors": "Couleurs invers\xE9es",
       contrast: "Contraste",
       "font-size": "Taille de police",
       "line-height": "Hauteur de ligne",
@@ -436,7 +436,7 @@
     },
     en: {
       "dyslexic-font": "Dyslexic font",
-      "inverted-colors": "Inverted colors",
+      "invert-colors": "Inverted colors",
       contrast: "Contrast",
       "font-size": "Font size",
       "line-height": "Line height",
@@ -445,7 +445,7 @@
     },
     es: {
       "dyslexic-font": "Fuente disl\xE9xica",
-      "inverted-colors": "Colores invertidos",
+      "invert-colors": "Colores invertidos",
       contrast: "Contraste",
       "font-size": "Tama\xF1o de fuente",
       "line-height": "Altura de l\xEDnea",
@@ -477,12 +477,12 @@
       const root3 = this.attachShadow({ mode: "open" });
       root3.append(template.content.cloneNode(true));
       this.#fontField = root3.querySelector("#dyslexic-font");
-      this.#colorsField = root3.querySelector("#inverted-colors");
+      this.#colorsField = root3.querySelector("#invert-colors");
       this.#contrastField = root3.querySelector("#contrast");
       this.#fontSizeField = root3.querySelector("#font-size");
       this.#lineHeightField = root3.querySelector("#line-height");
       this.#fontField.addEventListener("change", (e) => settings.dyslexicFont = e.target.checked);
-      this.#colorsField.addEventListener("change", (e) => settings.invertedColors = e.target.checked);
+      this.#colorsField.addEventListener("change", (e) => settings.invertColors = e.target.checked);
       this.#contrastField.addEventListener("change", this.#handleChangeNumValue("contrast"));
       this.#fontSizeField.addEventListener("change", this.#handleChangeNumValue("fontSize"));
       this.#lineHeightField.addEventListener("change", this.#handleChangeNumValue("lineHeight"));
@@ -523,7 +523,7 @@
     }
     #handleStateChange = (prop, value) => {
       this.#fontField.checked = settings.dyslexicFont;
-      this.#colorsField.checked = settings.invertedColors;
+      this.#colorsField.checked = settings.invertColors;
       this.#contrastField.value = String(settings.contrast);
       this.#fontSizeField.value = String(settings.fontSize);
       this.#lineHeightField.value = String(settings.lineHeight);

@@ -33,8 +33,8 @@ template.innerHTML = `
         <label for="dyslexic-font" part="dyslexic-font-label">Police dyslexie</label>
       </div>
       <div class="field" part="invert-colors">
-        <input type="checkbox" id="inverted-colors" part="invert-colors-input">
-        <label for="inverted-colors" part="invert-colors-label">Couleurs inversées</label>
+        <input type="checkbox" id="invert-colors" part="invert-colors-input">
+        <label for="invert-colors" part="invert-colors-label">Couleurs inversées</label>
       </div>
       <div class="field" part="contrast">
         <input type="number" step="10" id="contrast" min="${bounds.contrast[0]}" max="${bounds.contrast[1]}" part="contrast-input">

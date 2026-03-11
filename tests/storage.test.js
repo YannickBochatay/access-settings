@@ -12,7 +12,7 @@ QUnit.module('local storage', () => {
     settings.fontSize = 20;
     settings.dyslexicFont = true;
     settings.lineHeight = 1.8;
-    settings.invertedColors = false;
+    settings.invertColors = false;
     settings.contrast = 120;
 
     settings.save();
@@ -20,7 +20,7 @@ QUnit.module('local storage', () => {
     assert.strictEqual(config.fontSize, 20);
     assert.strictEqual(config.dyslexicFont, true);
     assert.strictEqual(config.lineHeight, 1.8);
-    assert.strictEqual(config.invertedColors, false);
+    assert.strictEqual(config.invertColors, false);
     assert.strictEqual(config.contrast, 120);
   });
 

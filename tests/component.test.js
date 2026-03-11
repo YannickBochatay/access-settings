@@ -29,16 +29,16 @@ QUnit.module('component', hooks => {
   });
 
   QUnit.test('change invert colors field should change preference', assert => {
-    const input = access.shadowRoot.querySelector("#inverted-colors");
+    const input = access.shadowRoot.querySelector("#invert-colors");
     
-    assert.strictEqual(settings.invertedColors, false);
+    assert.strictEqual(settings.invertColors, false);
     assert.strictEqual(input.checked, false);
     input.checked = true;
     input.dispatchEvent(new Event("change"));
-    assert.strictEqual(settings.invertedColors, true);
+    assert.strictEqual(settings.invertColors, true);
     input.checked = false;
     input.dispatchEvent(new Event("change"));
-    assert.strictEqual(settings.invertedColors, false);
+    assert.strictEqual(settings.invertColors, false);
   });
 
   QUnit.test('change contrast field should change preference', assert => {

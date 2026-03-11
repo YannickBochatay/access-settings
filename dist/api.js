@@ -47,7 +47,7 @@
       }
     }
   }
-  :root.invertedColors {
+  :root.invertColors {
     &:not(.contrast) {
       filter:invert(1);
     }
@@ -56,7 +56,7 @@
     }
   }
   :root.contrast {
-    &:not(.invertedColors) {
+    &:not(.invertColors) {
       filter:contrast(var(--access-contrast));
     }
   }
@@ -69,7 +69,7 @@
       &.contrasted {
         filter:invert(1) contrast(var(--access-contrast));
       }
-      &.invertedColors {
+      &.invertColors {
         &:not(.contrast) {
           filter:invert(0);
         }
@@ -145,7 +145,7 @@
   }
   var initialValues = {
     dyslexicFont: false,
-    invertedColors: false,
+    invertColors: false,
     contrast: 100,
     fontSize: getInitialFontSize(),
     lineHeight: getInitialLineHeight()
@@ -160,7 +160,7 @@
     },
     initialValues: { value: initialValues },
     _dyslexicFont: { writable: true, value: initialValues.dyslexicFont },
-    _invertedColors: { writable: true, value: initialValues.invertedColors },
+    _invertColors: { writable: true, value: initialValues.invertColors },
     _contrast: { writable: true, value: initialValues.contrast },
     _fontSize: { writable: true, value: initialValues.fontSize },
     _lineHeight: { writable: true, value: initialValues.lineHeight },
@@ -184,13 +184,13 @@
         setBooleanValue("dyslexicFont", value);
       }
     },
-    invertedColors: {
+    invertColors: {
       enumerable: true,
       get() {
-        return this._invertedColors;
+        return this._invertColors;
       },
       set(value) {
-        setBooleanValue("invertedColors", value);
+        setBooleanValue("invertColors", value);
       }
     },
     contrast: {

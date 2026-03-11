@@ -21,15 +21,15 @@ QUnit.module('change state', hooks => {
   });
 
   QUnit.test("change colors", assert => {
-    assert.strictEqual(root.classList.contains("invertedColors"), false);
+    assert.strictEqual(root.classList.contains("invertColors"), false);
     assert.strictEqual(style.filter.includes("invert(1)"), false);
 
-    settings.invertedColors = true;
-    assert.strictEqual(root.classList.contains("invertedColors"), true);
+    settings.invertColors = true;
+    assert.strictEqual(root.classList.contains("invertColors"), true);
     assert.strictEqual(style.filter.includes("invert(1)"), true);
 
-    settings.invertedColors = false;
-    assert.strictEqual(root.classList.contains("invertedColors"), false);
+    settings.invertColors = false;
+    assert.strictEqual(root.classList.contains("invertColors"), false);
     assert.strictEqual(style.filter.includes("invert(1)"), false);
   });
 
@@ -99,12 +99,12 @@ QUnit.module('change state', hooks => {
     settings.fontSize = 16;
     assert.strictEqual(cpt, 2, "listeners can be removed");
 
-    settings.addEventListener("change-inverted-colors", increment);
+    settings.addEventListener("change-invert-colors", increment);
     settings.fontSize = 16;
     assert.strictEqual(cpt, 2, "specific listeners should not interfer others");
-    settings.invertedColors = true;
+    settings.invertColors = true;
     assert.strictEqual(cpt, 3, "specific listeners should work");
-    settings.invertedColors = true;
+    settings.invertColors = true;
     assert.strictEqual(cpt, 3, "same value should not trigger specific listener");
   });
 
@@ -113,7 +113,7 @@ QUnit.module('change state', hooks => {
     settings.lineHeight = 1.8;
     settings.dyslexicFont = true;
     settings.contrast = 100;
-    settings.invertedColors = true;
+    settings.invertColors = true;
 
     settings.reset("fontSize");
     assert.strictEqual(settings.fontSize, settings.initialValues.fontSize);
@@ -130,7 +130,7 @@ QUnit.module('change state', hooks => {
     settings.lineHeight = 1.8;
     settings.dyslexicFont = true;
     settings.contrast = 100;
-    settings.invertedColors = true;
+    settings.invertColors = true;
 
     settings.reset();
 
@@ -169,12 +169,12 @@ QUnit.module('change state', hooks => {
     assert.throws(() => settings.dyslexicFont = undefined);
     assert.throws(() => settings.dyslexicFont = {});
 
-    assert.throws(() => settings.invertedColors = "true");
-    assert.throws(() => settings.invertedColors = 1);
-    assert.throws(() => settings.invertedColors = "toto");
-    assert.throws(() => settings.invertedColors = null);
-    assert.throws(() => settings.invertedColors = undefined);
-    assert.throws(() => settings.invertedColors = {});
+    assert.throws(() => settings.invertColors = "true");
+    assert.throws(() => settings.invertColors = 1);
+    assert.throws(() => settings.invertColors = "toto");
+    assert.throws(() => settings.invertColors = null);
+    assert.throws(() => settings.invertColors = undefined);
+    assert.throws(() => settings.invertColors = {});
 
   });
 
