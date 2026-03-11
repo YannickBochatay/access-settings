@@ -42,6 +42,14 @@ header {
     font-size:2rem;
     white-space: nowrap;
     margin-left:2rem;
+
+    a {
+      color:var(--copy);
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
   .toolbar {
     display:flex;
