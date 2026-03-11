@@ -21,7 +21,6 @@ function setValue(prop, value) {
   if (prevValue !== value) {
     settings["_"+prop] = value;
     settings.dispatchEvent(new CustomEvent("change", { detail : { prop, value, prevValue }}));
-    settings.dispatchEvent(new CustomEvent(`change-${toDashCase(prop)}`, { detail : { prop, value, prevValue }}));
   }
 }
 

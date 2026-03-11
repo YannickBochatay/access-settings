@@ -98,14 +98,6 @@ QUnit.module('change state', hooks => {
     settings.removeEventListener("change", increment);
     settings.fontSize = 16;
     assert.strictEqual(cpt, 2, "listeners can be removed");
-
-    settings.addEventListener("change-invert-colors", increment);
-    settings.fontSize = 16;
-    assert.strictEqual(cpt, 2, "specific listeners should not interfer others");
-    settings.invertColors = true;
-    assert.strictEqual(cpt, 3, "specific listeners should work");
-    settings.invertColors = true;
-    assert.strictEqual(cpt, 3, "same value should not trigger specific listener");
   });
 
   QUnit.test("reset prop", assert => {

@@ -59,7 +59,7 @@ export class AccessSettings extends HTMLElement {
     }
   }
 
-  #triggerEvent(prop, value) {
+  #triggerEvents(prop, value) {
     const event = new CustomEvent("change", {
       detail: {
         prop,
@@ -90,7 +90,7 @@ export class AccessSettings extends HTMLElement {
     this.#fontSizeField.value = String(settings.fontSize);
     this.#lineHeightField.value = String(settings.lineHeight);
 
-    if (prop) this.#triggerEvent(prop, value);
+    if (prop) this.#triggerEvents(prop, value);
 
     settings.save();
   }
