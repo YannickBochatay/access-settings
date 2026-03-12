@@ -1,9 +1,8 @@
-(() => {
-  // src/settings/globalStyles.js
-  var globalStyles = document.createElement("style");
-  globalStyles.id = "access-settings-css-rules";
-  globalStyles.innerHTML = /*css*/
-  `
+// src/settings/globalStyles.js
+var globalStyles = document.createElement("style");
+globalStyles.id = "access-settings-css-rules";
+globalStyles.innerHTML = /*css*/
+`
   @font-face {
     font-family: open-dyslexic;
     src: url(https://fonts.cdnfonts.com/s/29616/open-dyslexic.woff);
@@ -80,177 +79,180 @@
     }
   }
 `;
-  document.head.append(globalStyles);
+document.head.append(globalStyles);
 
-  // src/settings/utils.js
-  var root = document.documentElement;
-  function getInitialFontSize(elmt = root) {
-    let fontSize = getComputedStyle(elmt).fontSize;
-    return Number.parseInt(fontSize);
-  }
-  function getInitialLineHeight(elmt = root) {
-    let lineHeight = getComputedStyle(elmt).lineHeight;
-    if (!isNaN(lineHeight)) return Number(lineHeight);
-    let value = Number.parseInt(lineHeight);
-    if (Number.isNaN(value)) {
-      if (elmt === root) {
-        let p = document.createElement("p");
-        p.style.margin = 0;
-        p.style.border = "none";
-        p.style.padding = 0;
-        p.textContent = "toto";
-        document.body.appendChild(p);
-        let lineHeight2 = getInitialLineHeight(p);
-        p.remove();
-        return lineHeight2;
-      } else {
-        value = elmt.getBoundingClientRect().height;
-      }
+// src/settings/utils.js
+var root = document.documentElement;
+function getInitialFontSize(elmt = root) {
+  let fontSize = getComputedStyle(elmt).fontSize;
+  return Number.parseInt(fontSize);
+}
+function getInitialLineHeight(elmt = root) {
+  let lineHeight = getComputedStyle(elmt).lineHeight;
+  if (!isNaN(lineHeight)) return Number(lineHeight);
+  let value = Number.parseInt(lineHeight);
+  if (Number.isNaN(value)) {
+    if (elmt === root) {
+      let p = document.createElement("p");
+      p.style.margin = 0;
+      p.style.border = "none";
+      p.style.padding = 0;
+      p.textContent = "toto";
+      document.body.appendChild(p);
+      let lineHeight2 = getInitialLineHeight(p);
+      p.remove();
+      return lineHeight2;
+    } else {
+      value = elmt.getBoundingClientRect().height;
     }
-    return Math.round(value * 10 / getInitialFontSize()) / 10;
   }
-  function toDashCase(str) {
-    return str.replaceAll(/[A-Z]/g, (m) => "-" + m.toLowerCase());
-  }
+  return Math.round(value * 10 / getInitialFontSize()) / 10;
+}
+function toDashCase(str) {
+  return str.replaceAll(/[A-Z]/g, (m) => "-" + m.toLowerCase());
+}
 
-  // src/settings/settings.js
-  var root2 = document.documentElement;
-  var settings = new EventTarget();
-  settings.reset = function(prop) {
-    if (!prop) {
-      for (let key in initialValues) this.reset(key);
-      return;
+// src/settings/settings.js
+var root2 = document.documentElement;
+var settings = new EventTarget();
+settings.reset = function(prop) {
+  if (!prop) {
+    for (let key in initialValues) this.reset(key);
+    return;
+  }
+  if (!(prop in initialValues)) throw new Error(prop + " is not a known setting property");
+  this[prop] = initialValues[prop];
+  root2.classList.remove(prop);
+};
+function setValue(prop, value) {
+  const prevValue = settings["_" + prop];
+  if (prevValue !== value) {
+    settings["_" + prop] = value;
+    settings.dispatchEvent(new CustomEvent("change", { detail: { prop, value, prevValue } }));
+  }
+}
+function setBooleanValue(prop, value) {
+  if (typeof value !== "boolean") throw new TypeError(`${prop} value must be a boolean`);
+  if (value) root2.classList.add(prop);
+  else root2.classList.remove(prop);
+  setValue(prop, value);
+}
+function setNumberValue(prop, value, unit = "") {
+  if (typeof value !== "number") throw new TypeError(`${prop} value must be a number`);
+  const bounds = settings.bounds[prop];
+  if (value < bounds[0] || value > bounds[1]) {
+    throw new RangeError(`${prop} value must be between ${bounds[0]} and ${bounds[1]}`);
+  }
+  root2.classList.add(prop);
+  root2.style.setProperty(`--access-${toDashCase(prop)}`, String(value) + unit);
+  setValue(prop, value);
+}
+var initialValues = {
+  dyslexicFont: false,
+  invertColors: false,
+  contrast: 100,
+  fontSize: getInitialFontSize(),
+  lineHeight: getInitialLineHeight()
+};
+Object.defineProperties(settings, {
+  bounds: {
+    value: {
+      contrast: [50, 150],
+      lineHeight: [0.8, 3],
+      fontSize: [6, 40]
     }
-    if (!(prop in initialValues)) throw new Error(prop + " is not a known setting property");
-    this[prop] = initialValues[prop];
-    root2.classList.remove(prop);
-  };
-  function setValue(prop, value) {
-    const prevValue = settings["_" + prop];
-    if (prevValue !== value) {
-      settings["_" + prop] = value;
-      settings.dispatchEvent(new CustomEvent("change", { detail: { prop, value, prevValue } }));
+  },
+  initialValues: { value: initialValues },
+  _dyslexicFont: { writable: true, value: initialValues.dyslexicFont },
+  _invertColors: { writable: true, value: initialValues.invertColors },
+  _contrast: { writable: true, value: initialValues.contrast },
+  _fontSize: { writable: true, value: initialValues.fontSize },
+  _lineHeight: { writable: true, value: initialValues.lineHeight },
+  _important: { writable: true, value: false },
+  important: {
+    get() {
+      return this._important;
+    },
+    set(value) {
+      if (typeof value !== "boolean") throw new TypeError("value important must be a boolean");
+      this._important = value;
+      root2.classList[value ? "add" : "remove"]("important");
+    }
+  },
+  dyslexicFont: {
+    enumerable: true,
+    get() {
+      return this._dyslexicFont;
+    },
+    set(value) {
+      setBooleanValue("dyslexicFont", value);
+    }
+  },
+  invertColors: {
+    enumerable: true,
+    get() {
+      return this._invertColors;
+    },
+    set(value) {
+      setBooleanValue("invertColors", value);
+    }
+  },
+  contrast: {
+    enumerable: true,
+    get() {
+      return this._contrast;
+    },
+    set(value) {
+      setNumberValue("contrast", value, "%");
+    }
+  },
+  lineHeight: {
+    enumerable: true,
+    get() {
+      return this._lineHeight;
+    },
+    set(value) {
+      setNumberValue("lineHeight", value);
+    }
+  },
+  fontSize: {
+    enumerable: true,
+    get() {
+      return this._fontSize;
+    },
+    set(value) {
+      setNumberValue("fontSize", value, "px");
     }
   }
-  function setBooleanValue(prop, value) {
-    if (typeof value !== "boolean") throw new TypeError(`${prop} value must be a boolean`);
-    if (value) root2.classList.add(prop);
-    else root2.classList.remove(prop);
-    setValue(prop, value);
-  }
-  function setNumberValue(prop, value, unit = "") {
-    if (typeof value !== "number") throw new TypeError(`${prop} value must be a number`);
-    const bounds = settings.bounds[prop];
-    if (value < bounds[0] || value > bounds[1]) {
-      throw new RangeError(`${prop} value must be between ${bounds[0]} and ${bounds[1]}`);
-    }
-    root2.classList.add(prop);
-    root2.style.setProperty(`--access-${toDashCase(prop)}`, String(value) + unit);
-    setValue(prop, value);
-  }
-  var initialValues = {
-    dyslexicFont: false,
-    invertColors: false,
-    contrast: 100,
-    fontSize: getInitialFontSize(),
-    lineHeight: getInitialLineHeight()
-  };
-  Object.defineProperties(settings, {
-    bounds: {
-      value: {
-        contrast: [50, 150],
-        lineHeight: [0.8, 3],
-        fontSize: [6, 40]
-      }
-    },
-    initialValues: { value: initialValues },
-    _dyslexicFont: { writable: true, value: initialValues.dyslexicFont },
-    _invertColors: { writable: true, value: initialValues.invertColors },
-    _contrast: { writable: true, value: initialValues.contrast },
-    _fontSize: { writable: true, value: initialValues.fontSize },
-    _lineHeight: { writable: true, value: initialValues.lineHeight },
-    _important: { writable: true, value: false },
-    important: {
-      get() {
-        return this._important;
-      },
-      set(value) {
-        if (typeof value !== "boolean") throw new TypeError("value important must be a boolean");
-        this._important = value;
-        root2.classList[value ? "add" : "remove"]("important");
-      }
-    },
-    dyslexicFont: {
-      enumerable: true,
-      get() {
-        return this._dyslexicFont;
-      },
-      set(value) {
-        setBooleanValue("dyslexicFont", value);
-      }
-    },
-    invertColors: {
-      enumerable: true,
-      get() {
-        return this._invertColors;
-      },
-      set(value) {
-        setBooleanValue("invertColors", value);
-      }
-    },
-    contrast: {
-      enumerable: true,
-      get() {
-        return this._contrast;
-      },
-      set(value) {
-        setNumberValue("contrast", value, "%");
-      }
-    },
-    lineHeight: {
-      enumerable: true,
-      get() {
-        return this._lineHeight;
-      },
-      set(value) {
-        setNumberValue("lineHeight", value);
-      }
-    },
-    fontSize: {
-      enumerable: true,
-      get() {
-        return this._fontSize;
-      },
-      set(value) {
-        setNumberValue("fontSize", value, "px");
-      }
-    }
-  });
+});
 
-  // src/settings/localStorage.js
-  var STORAGE_NAME = "access-settings";
-  Object.defineProperties(settings, {
-    save: {
-      value: function saveConfig() {
-        localStorage.setItem(STORAGE_NAME, JSON.stringify(settings));
-      }
-    },
-    load: {
-      value: function loadConfig() {
-        const storedData = localStorage.getItem(STORAGE_NAME);
-        const data = storedData ? JSON.parse(storedData) : null;
-        if (data) {
-          for (let key in data) {
-            if (data[key] !== settings[key]) settings[key] = data[key];
-          }
+// src/settings/localStorage.js
+var STORAGE_NAME = "access-settings";
+Object.defineProperties(settings, {
+  save: {
+    value: function saveConfig() {
+      localStorage.setItem(STORAGE_NAME, JSON.stringify(settings));
+    }
+  },
+  load: {
+    value: function loadConfig() {
+      const storedData = localStorage.getItem(STORAGE_NAME);
+      const data = storedData ? JSON.parse(storedData) : null;
+      if (data) {
+        for (let key in data) {
+          if (data[key] !== settings[key]) settings[key] = data[key];
         }
-        return data;
       }
-    },
-    remove: {
-      value: function removeConfig() {
-        localStorage.removeItem(STORAGE_NAME);
-      }
+      return data;
     }
-  });
-})();
+  },
+  remove: {
+    value: function removeConfig() {
+      localStorage.removeItem(STORAGE_NAME);
+    }
+  }
+});
+export {
+  settings as default,
+  settings
+};

@@ -1,9 +1,8 @@
-(() => {
-  // src/settings/globalStyles.js
-  var globalStyles = document.createElement("style");
-  globalStyles.id = "access-settings-css-rules";
-  globalStyles.innerHTML = /*css*/
-  `
+// src/settings/globalStyles.js
+var globalStyles = document.createElement("style");
+globalStyles.id = "access-settings-css-rules";
+globalStyles.innerHTML = /*css*/
+`
   @font-face {
     font-family: open-dyslexic;
     src: url(https://fonts.cdnfonts.com/s/29616/open-dyslexic.woff);
@@ -80,184 +79,184 @@
     }
   }
 `;
-  document.head.append(globalStyles);
+document.head.append(globalStyles);
 
-  // src/settings/utils.js
-  var root = document.documentElement;
-  function getInitialFontSize(elmt = root) {
-    let fontSize = getComputedStyle(elmt).fontSize;
-    return Number.parseInt(fontSize);
-  }
-  function getInitialLineHeight(elmt = root) {
-    let lineHeight = getComputedStyle(elmt).lineHeight;
-    if (!isNaN(lineHeight)) return Number(lineHeight);
-    let value = Number.parseInt(lineHeight);
-    if (Number.isNaN(value)) {
-      if (elmt === root) {
-        let p = document.createElement("p");
-        p.style.margin = 0;
-        p.style.border = "none";
-        p.style.padding = 0;
-        p.textContent = "toto";
-        document.body.appendChild(p);
-        let lineHeight2 = getInitialLineHeight(p);
-        p.remove();
-        return lineHeight2;
-      } else {
-        value = elmt.getBoundingClientRect().height;
-      }
+// src/settings/utils.js
+var root = document.documentElement;
+function getInitialFontSize(elmt = root) {
+  let fontSize = getComputedStyle(elmt).fontSize;
+  return Number.parseInt(fontSize);
+}
+function getInitialLineHeight(elmt = root) {
+  let lineHeight = getComputedStyle(elmt).lineHeight;
+  if (!isNaN(lineHeight)) return Number(lineHeight);
+  let value = Number.parseInt(lineHeight);
+  if (Number.isNaN(value)) {
+    if (elmt === root) {
+      let p = document.createElement("p");
+      p.style.margin = 0;
+      p.style.border = "none";
+      p.style.padding = 0;
+      p.textContent = "toto";
+      document.body.appendChild(p);
+      let lineHeight2 = getInitialLineHeight(p);
+      p.remove();
+      return lineHeight2;
+    } else {
+      value = elmt.getBoundingClientRect().height;
     }
-    return Math.round(value * 10 / getInitialFontSize()) / 10;
   }
-  function toDashCase(str) {
-    return str.replaceAll(/[A-Z]/g, (m) => "-" + m.toLowerCase());
-  }
+  return Math.round(value * 10 / getInitialFontSize()) / 10;
+}
+function toDashCase(str) {
+  return str.replaceAll(/[A-Z]/g, (m) => "-" + m.toLowerCase());
+}
 
-  // src/settings/settings.js
-  var root2 = document.documentElement;
-  var settings = new EventTarget();
-  settings.reset = function(prop) {
-    if (!prop) {
-      for (let key in initialValues) this.reset(key);
-      return;
+// src/settings/settings.js
+var root2 = document.documentElement;
+var settings = new EventTarget();
+settings.reset = function(prop) {
+  if (!prop) {
+    for (let key in initialValues) this.reset(key);
+    return;
+  }
+  if (!(prop in initialValues)) throw new Error(prop + " is not a known setting property");
+  this[prop] = initialValues[prop];
+  root2.classList.remove(prop);
+};
+function setValue(prop, value) {
+  const prevValue = settings["_" + prop];
+  if (prevValue !== value) {
+    settings["_" + prop] = value;
+    settings.dispatchEvent(new CustomEvent("change", { detail: { prop, value, prevValue } }));
+  }
+}
+function setBooleanValue(prop, value) {
+  if (typeof value !== "boolean") throw new TypeError(`${prop} value must be a boolean`);
+  if (value) root2.classList.add(prop);
+  else root2.classList.remove(prop);
+  setValue(prop, value);
+}
+function setNumberValue(prop, value, unit = "") {
+  if (typeof value !== "number") throw new TypeError(`${prop} value must be a number`);
+  const bounds2 = settings.bounds[prop];
+  if (value < bounds2[0] || value > bounds2[1]) {
+    throw new RangeError(`${prop} value must be between ${bounds2[0]} and ${bounds2[1]}`);
+  }
+  root2.classList.add(prop);
+  root2.style.setProperty(`--access-${toDashCase(prop)}`, String(value) + unit);
+  setValue(prop, value);
+}
+var initialValues = {
+  dyslexicFont: false,
+  invertColors: false,
+  contrast: 100,
+  fontSize: getInitialFontSize(),
+  lineHeight: getInitialLineHeight()
+};
+Object.defineProperties(settings, {
+  bounds: {
+    value: {
+      contrast: [50, 150],
+      lineHeight: [0.8, 3],
+      fontSize: [6, 40]
     }
-    if (!(prop in initialValues)) throw new Error(prop + " is not a known setting property");
-    this[prop] = initialValues[prop];
-    root2.classList.remove(prop);
-  };
-  function setValue(prop, value) {
-    const prevValue = settings["_" + prop];
-    if (prevValue !== value) {
-      settings["_" + prop] = value;
-      settings.dispatchEvent(new CustomEvent("change", { detail: { prop, value, prevValue } }));
+  },
+  initialValues: { value: initialValues },
+  _dyslexicFont: { writable: true, value: initialValues.dyslexicFont },
+  _invertColors: { writable: true, value: initialValues.invertColors },
+  _contrast: { writable: true, value: initialValues.contrast },
+  _fontSize: { writable: true, value: initialValues.fontSize },
+  _lineHeight: { writable: true, value: initialValues.lineHeight },
+  _important: { writable: true, value: false },
+  important: {
+    get() {
+      return this._important;
+    },
+    set(value) {
+      if (typeof value !== "boolean") throw new TypeError("value important must be a boolean");
+      this._important = value;
+      root2.classList[value ? "add" : "remove"]("important");
+    }
+  },
+  dyslexicFont: {
+    enumerable: true,
+    get() {
+      return this._dyslexicFont;
+    },
+    set(value) {
+      setBooleanValue("dyslexicFont", value);
+    }
+  },
+  invertColors: {
+    enumerable: true,
+    get() {
+      return this._invertColors;
+    },
+    set(value) {
+      setBooleanValue("invertColors", value);
+    }
+  },
+  contrast: {
+    enumerable: true,
+    get() {
+      return this._contrast;
+    },
+    set(value) {
+      setNumberValue("contrast", value, "%");
+    }
+  },
+  lineHeight: {
+    enumerable: true,
+    get() {
+      return this._lineHeight;
+    },
+    set(value) {
+      setNumberValue("lineHeight", value);
+    }
+  },
+  fontSize: {
+    enumerable: true,
+    get() {
+      return this._fontSize;
+    },
+    set(value) {
+      setNumberValue("fontSize", value, "px");
     }
   }
-  function setBooleanValue(prop, value) {
-    if (typeof value !== "boolean") throw new TypeError(`${prop} value must be a boolean`);
-    if (value) root2.classList.add(prop);
-    else root2.classList.remove(prop);
-    setValue(prop, value);
-  }
-  function setNumberValue(prop, value, unit = "") {
-    if (typeof value !== "number") throw new TypeError(`${prop} value must be a number`);
-    const bounds2 = settings.bounds[prop];
-    if (value < bounds2[0] || value > bounds2[1]) {
-      throw new RangeError(`${prop} value must be between ${bounds2[0]} and ${bounds2[1]}`);
-    }
-    root2.classList.add(prop);
-    root2.style.setProperty(`--access-${toDashCase(prop)}`, String(value) + unit);
-    setValue(prop, value);
-  }
-  var initialValues = {
-    dyslexicFont: false,
-    invertColors: false,
-    contrast: 100,
-    fontSize: getInitialFontSize(),
-    lineHeight: getInitialLineHeight()
-  };
-  Object.defineProperties(settings, {
-    bounds: {
-      value: {
-        contrast: [50, 150],
-        lineHeight: [0.8, 3],
-        fontSize: [6, 40]
-      }
-    },
-    initialValues: { value: initialValues },
-    _dyslexicFont: { writable: true, value: initialValues.dyslexicFont },
-    _invertColors: { writable: true, value: initialValues.invertColors },
-    _contrast: { writable: true, value: initialValues.contrast },
-    _fontSize: { writable: true, value: initialValues.fontSize },
-    _lineHeight: { writable: true, value: initialValues.lineHeight },
-    _important: { writable: true, value: false },
-    important: {
-      get() {
-        return this._important;
-      },
-      set(value) {
-        if (typeof value !== "boolean") throw new TypeError("value important must be a boolean");
-        this._important = value;
-        root2.classList[value ? "add" : "remove"]("important");
-      }
-    },
-    dyslexicFont: {
-      enumerable: true,
-      get() {
-        return this._dyslexicFont;
-      },
-      set(value) {
-        setBooleanValue("dyslexicFont", value);
-      }
-    },
-    invertColors: {
-      enumerable: true,
-      get() {
-        return this._invertColors;
-      },
-      set(value) {
-        setBooleanValue("invertColors", value);
-      }
-    },
-    contrast: {
-      enumerable: true,
-      get() {
-        return this._contrast;
-      },
-      set(value) {
-        setNumberValue("contrast", value, "%");
-      }
-    },
-    lineHeight: {
-      enumerable: true,
-      get() {
-        return this._lineHeight;
-      },
-      set(value) {
-        setNumberValue("lineHeight", value);
-      }
-    },
-    fontSize: {
-      enumerable: true,
-      get() {
-        return this._fontSize;
-      },
-      set(value) {
-        setNumberValue("fontSize", value, "px");
-      }
-    }
-  });
+});
 
-  // src/settings/localStorage.js
-  var STORAGE_NAME = "access-settings";
-  Object.defineProperties(settings, {
-    save: {
-      value: function saveConfig() {
-        localStorage.setItem(STORAGE_NAME, JSON.stringify(settings));
-      }
-    },
-    load: {
-      value: function loadConfig() {
-        const storedData = localStorage.getItem(STORAGE_NAME);
-        const data = storedData ? JSON.parse(storedData) : null;
-        if (data) {
-          for (let key in data) {
-            if (data[key] !== settings[key]) settings[key] = data[key];
-          }
+// src/settings/localStorage.js
+var STORAGE_NAME = "access-settings";
+Object.defineProperties(settings, {
+  save: {
+    value: function saveConfig() {
+      localStorage.setItem(STORAGE_NAME, JSON.stringify(settings));
+    }
+  },
+  load: {
+    value: function loadConfig() {
+      const storedData = localStorage.getItem(STORAGE_NAME);
+      const data = storedData ? JSON.parse(storedData) : null;
+      if (data) {
+        for (let key in data) {
+          if (data[key] !== settings[key]) settings[key] = data[key];
         }
-        return data;
       }
-    },
-    remove: {
-      value: function removeConfig() {
-        localStorage.removeItem(STORAGE_NAME);
-      }
+      return data;
     }
-  });
+  },
+  remove: {
+    value: function removeConfig() {
+      localStorage.removeItem(STORAGE_NAME);
+    }
+  }
+});
 
-  // src/component/style.js
-  var style = (
-    /*css*/
-    `
+// src/component/style.js
+var style = (
+  /*css*/
+  `
   :host {
     font-size:18px;
     line-height:1.5;
@@ -371,12 +370,12 @@
     }
   }
 `
-  );
+);
 
-  // src/component/template.js
-  var { bounds } = settings;
-  var template = document.createElement("template");
-  template.innerHTML = `
+// src/component/template.js
+var { bounds } = settings;
+var template = document.createElement("template");
+template.innerHTML = `
   <style>${style}</style>
   <details part="details">
     <summary part="summary" aria-label="accessibility settings">
@@ -428,150 +427,154 @@
   </details>
 `;
 
-  // src/component/languages.json
-  var languages_default = {
-    fr: {
-      "dyslexic-font": "Police dyslexie",
-      "invert-colors": "Couleurs invers\xE9es",
-      contrast: "Contraste",
-      "font-size": "Taille de police",
-      "line-height": "Hauteur de ligne",
-      reset: "R\xE9initialiser",
-      close: "Terminer"
-    },
-    en: {
-      "dyslexic-font": "Dyslexic font",
-      "invert-colors": "Inverted colors",
-      contrast: "Contrast",
-      "font-size": "Font size",
-      "line-height": "Line height",
-      reset: "Reset",
-      close: "Close"
-    },
-    es: {
-      "dyslexic-font": "Fuente disl\xE9xica",
-      "invert-colors": "Colores invertidos",
-      contrast: "Contraste",
-      "font-size": "Tama\xF1o de fuente",
-      "line-height": "Altura de l\xEDnea",
-      reset: "Restablecer",
-      close: "Cerrar"
-    }
-  };
+// src/component/languages.json
+var languages_default = {
+  fr: {
+    "dyslexic-font": "Police dyslexie",
+    "invert-colors": "Couleurs invers\xE9es",
+    contrast: "Contraste",
+    "font-size": "Taille de police",
+    "line-height": "Hauteur de ligne",
+    reset: "R\xE9initialiser",
+    close: "Terminer"
+  },
+  en: {
+    "dyslexic-font": "Dyslexic font",
+    "invert-colors": "Inverted colors",
+    contrast: "Contrast",
+    "font-size": "Font size",
+    "line-height": "Line height",
+    reset: "Reset",
+    close: "Close"
+  },
+  es: {
+    "dyslexic-font": "Fuente disl\xE9xica",
+    "invert-colors": "Colores invertidos",
+    contrast: "Contraste",
+    "font-size": "Tama\xF1o de fuente",
+    "line-height": "Altura de l\xEDnea",
+    reset: "Restablecer",
+    close: "Cerrar"
+  }
+};
 
-  // src/component/index.js
-  var AccessSettings = class extends HTMLElement {
-    static languages = new Proxy(languages_default, {
-      set(target, prop, value) {
-        target[prop] = value;
-        for (const component of document.querySelectorAll("access-settings")) {
-          component.handleLangChange();
-        }
-        return true;
+// src/component/index.js
+var AccessSettings = class extends HTMLElement {
+  static languages = new Proxy(languages_default, {
+    set(target, prop, value) {
+      target[prop] = value;
+      for (const component of document.querySelectorAll("access-settings")) {
+        component.handleLangChange();
+      }
+      return true;
+    }
+  });
+  static observedAttributes = ["lang", "important"];
+  #fontField;
+  #colorsField;
+  #contrastField;
+  #fontSizeField;
+  #lineHeightField;
+  #observer;
+  constructor() {
+    super();
+    const root3 = this.attachShadow({ mode: "open" });
+    root3.append(template.content.cloneNode(true));
+    this.#fontField = root3.querySelector("#dyslexic-font");
+    this.#colorsField = root3.querySelector("#invert-colors");
+    this.#contrastField = root3.querySelector("#contrast");
+    this.#fontSizeField = root3.querySelector("#font-size");
+    this.#lineHeightField = root3.querySelector("#line-height");
+    this.#fontField.addEventListener("change", (e) => settings.dyslexicFont = e.target.checked);
+    this.#colorsField.addEventListener("change", (e) => settings.invertColors = e.target.checked);
+    this.#contrastField.addEventListener("change", this.#handleChangeNumValue("contrast"));
+    this.#fontSizeField.addEventListener("change", this.#handleChangeNumValue("fontSize"));
+    this.#lineHeightField.addEventListener("change", this.#handleChangeNumValue("lineHeight"));
+    root3.querySelector("#reset").addEventListener("click", () => {
+      settings.reset();
+      settings.remove();
+    });
+    root3.querySelector("#close").addEventListener("click", () => this.open = false);
+    this.#observer = new MutationObserver((mutationList) => {
+      for (const mutation of mutationList) {
+        if (mutation.attributeName === "lang") this.handleLangChange();
       }
     });
-    static observedAttributes = ["lang", "important"];
-    #fontField;
-    #colorsField;
-    #contrastField;
-    #fontSizeField;
-    #lineHeightField;
-    #observer;
-    constructor() {
-      super();
-      const root3 = this.attachShadow({ mode: "open" });
-      root3.append(template.content.cloneNode(true));
-      this.#fontField = root3.querySelector("#dyslexic-font");
-      this.#colorsField = root3.querySelector("#invert-colors");
-      this.#contrastField = root3.querySelector("#contrast");
-      this.#fontSizeField = root3.querySelector("#font-size");
-      this.#lineHeightField = root3.querySelector("#line-height");
-      this.#fontField.addEventListener("change", (e) => settings.dyslexicFont = e.target.checked);
-      this.#colorsField.addEventListener("change", (e) => settings.invertColors = e.target.checked);
-      this.#contrastField.addEventListener("change", this.#handleChangeNumValue("contrast"));
-      this.#fontSizeField.addEventListener("change", this.#handleChangeNumValue("fontSize"));
-      this.#lineHeightField.addEventListener("change", this.#handleChangeNumValue("lineHeight"));
-      root3.querySelector("#reset").addEventListener("click", () => {
-        settings.reset();
-        settings.remove();
-      });
-      root3.querySelector("#close").addEventListener("click", () => this.open = false);
-      this.#observer = new MutationObserver((mutationList) => {
-        for (const mutation of mutationList) {
-          if (mutation.attributeName === "lang") this.handleLangChange();
-        }
-      });
-    }
-    #handleChangeNumValue(prop) {
-      return (e) => {
-        if (e.target.checkValidity()) settings[prop] = Number(e.target.value);
-      };
-    }
-    #triggerEvents(prop, value) {
-      const event = new CustomEvent("change", {
-        detail: {
-          prop,
-          value,
-          settings
-        }
-      });
-      this.dispatchEvent(event);
-    }
-    get open() {
-      return this.shadowRoot.querySelector("details").open;
-    }
-    set open(value) {
-      this.shadowRoot.querySelector("details").open = value;
-    }
-    get lang() {
-      return this.getAttribute("lang") || document.documentElement.lang || "en";
-    }
-    #handleStateChange = (prop, value) => {
-      this.#fontField.checked = settings.dyslexicFont;
-      this.#colorsField.checked = settings.invertColors;
-      this.#contrastField.value = String(settings.contrast);
-      this.#fontSizeField.value = String(settings.fontSize);
-      this.#lineHeightField.value = String(settings.lineHeight);
-      if (prop) this.#triggerEvents(prop, value);
-      settings.save();
+  }
+  #handleChangeNumValue(prop) {
+    return (e) => {
+      if (e.target.checkValidity()) settings[prop] = Number(e.target.value);
     };
-    #parseLang(attr) {
-      return /^(\w+)(-\w+){0,2}$/.exec(attr)?.[1] || "en";
-    }
-    handleLangChange() {
-      const { languages } = this.constructor;
-      const locale = languages[this.lang] ?? languages[this.#parseLang(this.lang)] ?? languages.en;
-      const labels = this.shadowRoot.querySelectorAll("label");
-      for (let label of labels) {
-        let key = label.getAttribute("for");
-        if (locale[key]) label.textContent = locale[key];
+  }
+  #triggerEvents(prop, value) {
+    const event = new CustomEvent("change", {
+      detail: {
+        prop,
+        value,
+        settings
       }
-      for (let id of ["close", "reset"]) {
-        this.shadowRoot.querySelector(`#${id}`).value = locale[id];
-      }
-    }
-    #handleImportantChange() {
-      settings.important = this.hasAttribute("important");
-    }
-    connectedCallback() {
-      this.#handleStateChange();
-      this.#handleImportantChange();
-      this.handleLangChange();
-      settings.addEventListener("change", this.#handleStateChange);
-      settings.load();
-      this.#observer.observe(document.documentElement, { attributes: true });
-    }
-    disconnectedCallback() {
-      settings.removeEventListener("change", this.#handleStateChange);
-      this.#observer.disconnect();
-    }
-    attributeChangedCallback(prop) {
-      if (prop === "lang") this.handleLangChange();
-      else if (prop === "important") this.#handleImportantChange();
-    }
+    });
+    this.dispatchEvent(event);
+  }
+  get open() {
+    return this.shadowRoot.querySelector("details").open;
+  }
+  set open(value) {
+    this.shadowRoot.querySelector("details").open = value;
+  }
+  get lang() {
+    return this.getAttribute("lang") || document.documentElement.lang || "en";
+  }
+  #handleStateChange = (prop, value) => {
+    this.#fontField.checked = settings.dyslexicFont;
+    this.#colorsField.checked = settings.invertColors;
+    this.#contrastField.value = String(settings.contrast);
+    this.#fontSizeField.value = String(settings.fontSize);
+    this.#lineHeightField.value = String(settings.lineHeight);
+    if (prop) this.#triggerEvents(prop, value);
+    settings.save();
   };
-  customElements.define("access-settings", AccessSettings);
-})();
+  #parseLang(attr) {
+    return /^(\w+)(-\w+){0,2}$/.exec(attr)?.[1] || "en";
+  }
+  handleLangChange() {
+    const { languages } = this.constructor;
+    const locale = languages[this.lang] ?? languages[this.#parseLang(this.lang)] ?? languages.en;
+    const labels = this.shadowRoot.querySelectorAll("label");
+    for (let label of labels) {
+      let key = label.getAttribute("for");
+      if (locale[key]) label.textContent = locale[key];
+    }
+    for (let id of ["close", "reset"]) {
+      this.shadowRoot.querySelector(`#${id}`).value = locale[id];
+    }
+  }
+  #handleImportantChange() {
+    settings.important = this.hasAttribute("important");
+  }
+  connectedCallback() {
+    this.#handleStateChange();
+    this.#handleImportantChange();
+    this.handleLangChange();
+    settings.addEventListener("change", this.#handleStateChange);
+    settings.load();
+    this.#observer.observe(document.documentElement, { attributes: true });
+  }
+  disconnectedCallback() {
+    settings.removeEventListener("change", this.#handleStateChange);
+    this.#observer.disconnect();
+  }
+  attributeChangedCallback(prop) {
+    if (prop === "lang") this.handleLangChange();
+    else if (prop === "important") this.#handleImportantChange();
+  }
+};
+customElements.define("access-settings", AccessSettings);
+export {
+  AccessSettings,
+  AccessSettings as default,
+  settings
+};
 /**
  * @license
  * MIT License

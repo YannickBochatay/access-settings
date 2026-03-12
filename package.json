@@ -1,13 +1,13 @@
 {
   "name": "access-settings",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "web component for accessibility settings",
   "main": "dist/index.js",
   "scripts": {
-    "build-max": "esbuild src/index.js --bundle --outfile=dist/index.js",
-    "build-min": "esbuild src/index.js --bundle --minify --outfile=dist/index.min.js",
-    "build-api": "esbuild src/settings/index.js --bundle --outfile=dist/api.js",
-    "build-api-min": "esbuild src/settings/index.js --bundle --minify --outfile=dist/api.min.js",
+    "build-max": "esbuild src/index.js --bundle --format=esm --outfile=dist/index.js",
+    "build-min": "esbuild src/index.js --bundle --minify --format=esm --outfile=dist/index.min.js",
+    "build-api": "esbuild src/settings/index.js --bundle --format=esm --outfile=dist/api.js",
+    "build-api-min": "esbuild src/settings/index.js --bundle --minify --format=esm --outfile=dist/api.min.js",
     "build": "npm run build-max && npm run build-min && npm run build-api && npm run build-api-min",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
