@@ -15,7 +15,7 @@ document.head.append(style);
 const template = document.createElement("template");
 
 template.innerHTML = `
-  <select>
+  <select aria-label="language select">
     <option value="fr"></option>
     <option value="en"></option>
   </select>
