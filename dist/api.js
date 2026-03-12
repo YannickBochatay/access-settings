@@ -116,16 +116,21 @@
   // src/settings/settings.js
   var root2 = document.documentElement;
   var settings = new EventTarget();
-  settings.reset = function() {
-    for (let key in initialValues) {
-      if (this[key] !== initialValues[key]) this[key] = initialValues[key];
-      root2.classList.remove("fontSize", "lineHeight", "contrast");
+  settings.reset = function(prop) {
+    if (!prop) {
+      for (let key in initialValues) this.reset(key);
+      return;
     }
+    if (!(prop in initialValues)) throw new Error(prop + " is not a known setting property");
+    this[prop] = initialValues[prop];
+    root2.classList.remove(prop);
   };
   function setValue(prop, value) {
-    settings["_" + prop] = value;
-    settings.dispatchEvent(new Event("change"));
-    settings.dispatchEvent(new CustomEvent(`change-${prop}`));
+    const prevValue = settings["_" + prop];
+    if (prevValue !== value) {
+      settings["_" + prop] = value;
+      settings.dispatchEvent(new CustomEvent("change", { detail: { prop, value, prevValue } }));
+    }
   }
   function setBooleanValue(prop, value) {
     if (typeof value !== "boolean") throw new TypeError(`${prop} value must be a boolean`);
