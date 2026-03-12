@@ -486,12 +486,15 @@ access.addEventListener("change", e => {
     </section>
     <section id="api-doc">
       <h2>API</h2>
+      <section id="access">
+        <h3 lang="fr">Accès</h3>
+        <h3 lang="en">Access</h3>
+        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";</code></pre>
+      </section>
       <section id="properties">
         <h3 lang="fr">Propriétés</h3>
         <h3 lang="en">Properties</h3>
-        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
-
-accessSettings.dyslexicFont = true;
+        <pre><code class="language-js" tabindex="0">accessSettings.dyslexicFont = true;
 accessSettings.invertColors = false;
 accessSettings.contrast = 110;
 accessSettings.fontSize = 18;
@@ -500,19 +503,35 @@ accessSettings.lineHeight = 1.6;</code></pre>
       <section id="reset">
         <h3 lang="fr">Réinitialiser une propriété</h3>
         <h3 lang="en">Reset a property</h3>
-        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
-
-accessSettings.dyslexicFont = true;
-accessSettings.reset("dyslexicFont");</code></pre>
+        <pre><code class="language-js" tabindex="0">accessSettings.reset("dyslexicFont");</code></pre>
       </section>
       <section id="reset-all">
         <h3 lang="fr">Tout réinitialiser</h3>
         <h3 lang="en">Reset all</h3>
-        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
-
-accessSettings.dyslexicFont = true;
-accessSettings.fontSize = 18;
-accessSettings.reset();</code></pre>
+        <pre><code class="language-js" tabindex="0">accessSettings.reset();</code></pre>
+      </section>
+      <section id="save">
+        <h3 lang="fr">Sauvegarder les préférences</h3>
+        <h3 lang="en">Save preferences</h3>
+        <p lang="fr">Les préférences peuvent être sauvegardées dans le <a href="https://developer.mozilla.org/fr/docs/Web/API/Window/localStorage">localStorage</a>
+        par la méthode <code>save</code>.</p>
+        <p lang="en">Preferences can be saved in <a href="https://developer.mozilla.org/fr/docs/Web/API/Window/localStorage">localStorage</a>
+        using the <code>save</code> method.</p>
+        <pre><code class="language-js" tabindex="0">accessSettings.save();</code></pre>
+      </section>
+      <section id="load">
+        <h3 lang="fr">Charger les préférences</h3>
+        <h3 lang="en">Load preferences</h3>
+        <p lang="fr">Les préférences sauvegardées peuvent être chargées et appliquées par la méthode <code>load</code>.</p>
+        <p lang="en">Saved preferences can be loaded and applied using the <code>load</code> method.</p>
+        <pre><code class="language-js" tabindex="0">accessSettings.load();</code></pre>
+      </section>
+      <section id="remove">
+        <h3 lang="fr">Effacer les préférences</h3>
+        <h3 lang="en">Remove preferences</h3>
+        <p lang="fr">La sauvegarde des préférences peut être supprimée par la méthode <code>remove</code>.</p>
+        <p lang="en">Preference saving can be removed using the <code>remove</code> method.</p>
+        <pre><code class="language-js" tabindex="0">accessSettings.remove();</code></pre>
       </section>
       <section id="api-events">
         <h3 lang="fr">Évènements</h3>
