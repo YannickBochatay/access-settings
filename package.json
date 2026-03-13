@@ -8,6 +8,7 @@
     "build-min": "esbuild src/index.js --bundle --minify --format=esm --outfile=dist/index.min.js",
     "build-api": "esbuild src/settings/index.js --bundle --format=esm --outfile=dist/api.js",
     "build-api-min": "esbuild src/settings/index.js --bundle --minify --format=esm --outfile=dist/api.min.js",
+    "build-example": "esbuild doc/components/index.js --bundle --minify --format=esm --outfile=doc/components/index.min.js",
     "build": "npm run build-max && npm run build-min && npm run build-api && npm run build-api-min",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

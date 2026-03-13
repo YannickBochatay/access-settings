@@ -32,7 +32,7 @@ class Bookmarklet extends HTMLElement {
   constructor() {
     super()
     this.innerHTML = `
-      <a id="bookmarklet-link" href="javascript:(${addAccessSettings.toString()})()">
+      <a id="bookmarklet-link" href="javascript:(${addAccessSettings.toString().replaceAll('"',"'")})()">
         Access settings
       </a>
     `

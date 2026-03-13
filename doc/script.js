@@ -1,4 +1,13 @@
-import { AccessSettings, settings } from "../src/index.js";
+import { AccessSettings, settings } from "../dist/index.min.js";
+import hljs from 'https://cdn.jsdelivr.net/npm/highlight.js@11.11.1/+esm';
+
+const lang = /lang=(\w{2})/.exec(location.search)?.[1] ?? "en"
+
+if (["fr", "en"].includes(lang)) {
+  document.documentElement.lang = lang;
+}
+
+
 
 AccessSettings.languages.oc = {
   "dyslexic-font": "Poliça disléxica",
