@@ -377,7 +377,7 @@ var { bounds } = settings;
 var template = document.createElement("template");
 template.innerHTML = `
   <style>${style}</style>
-  <details part="details">
+  <details part="details" role="group">
     <summary part="summary" aria-label="accessibility settings">
       <slot name="icon">
         <svg viewBox="0 0 389.9 389.6" part="icon" id="default-icon">
