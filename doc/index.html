@@ -5,12 +5,8 @@
   <meta charset="UTF-8">
   <meta name="description" content="access-settings is a standalone web component to effortlessly add accessibility options to your websites. Features: dyslexia font, colors, contrast, font size, line height. CDN & NPM install.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="favicon.svg">
-  
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/a11y-light.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="icon" href="favicon.svg">  
   <link rel="stylesheet" href="styles.css">
-  <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js" onload="hljs.highlightAll()"></script>
-
   <script src="../dist/index.min.js" type="module"></script>
   <script src="components/index.min.js" type="module"></script>
   <script src="script.js" type="module"></script>
@@ -51,15 +47,15 @@
         <p lang="fr">Ajouter l'appel du script dans la balise <code>&lt;head></code> de votre page html : </p>
         <p lang="en">Add the script call in the tag <code>&lt;head></code> from your html page : </p>
 
-        <pre><code class="language-html" tabindex="0">&lt;script
+        <code-example language="html">&lt;script
   src="https://cdn.jsdelivr.net/npm/access-settings@1.0.0"
   type="module"
->&lt;/script></code></pre>
+>&lt;/script></code-example>
 
         <p lang="fr">Puis insérer le composant en fin de balise <code>&lt;body></code> :</p>
         <p lang="en">Then insert the component at the end of the tag <code>&lt;body></code> :</p>
 
-        <pre><code class="language-html" tabindex="0">&lt;access-settings all>&lt;/access-settings></code></pre>
+        <code-example language="html">&lt;access-settings all>&lt;/access-settings></code-example>
 
         <p lang="fr">Et le tour est joué ! Sur la droite de votre écran apparaît l'icône de configuration de vos préférences.</p>
         <p lang="en">And it's all done! On the right of your screen appears the icon of setting up your preferences.</p>
@@ -101,13 +97,13 @@
           l'interface utilisateur.
         </p>
         <p lang="en">You can also use the API only and manage yourself the user interface.</p>
-        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
+        <code-example language="js">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
 
 const checkBox = document.querySelector("#myCheckBox");
 
 checkBox.addEventListener("change", e => {
   accessSettings.dyslexicFont = e.target.checked;
-});</code></pre>
+});</code-example>
         <strong lang="fr">Rendu :</strong>
         <strong lang="en">Rendered :</strong>
         <label>
@@ -132,7 +128,7 @@ checkBox.addEventListener("change", e => {
         <p lang="fr">Comme indiqué plus haut, l'utilisation d'un serveur CDN est la façon la plus simple et la plus rapide d'installer le composant.</p>
         <p lang="en">As mentioned above, using a CDN server is the easiest and fastest way to install the component.</p>
 
-        <pre><code class="language-html" tabindex="0">&lt;!DOCTYPE html>
+        <code-example language="html">&lt;!DOCTYPE html>
 &lt;html lang="fr">
   &lt;head>
     &lt;meta charset="UTF-8">
@@ -146,7 +142,7 @@ checkBox.addEventListener("change", e => {
   &lt;body>
     &lt;access-settings all>&lt;/access-settings>
   &lt;/body>
-&lt;/html></code></pre>
+&lt;/html></code-example>
       </section>
 
       <section id="npm">
@@ -155,7 +151,7 @@ checkBox.addEventListener("change", e => {
         <p lang="fr">Vous pouvez aussi installer le composant par NPM.</p>
         <p lang="en">You can also install the component by NPM.</p>
 
-        <pre><code class="language-sh" tabindex="0">npm install access-settings</code></pre>
+        <code-example language="sh">npm install access-settings</code-example>
       </section>
 
       <section id="direct-download">
@@ -179,7 +175,7 @@ checkBox.addEventListener("change", e => {
         <p lang="fr">Pour afficher toutes les options, utiliser l'attribut <code>all</code>.</p>
         <p lang="en">To display all options, use the attribute <code>all</code>.</p>
 
-        <pre><code class="language-html" tabindex="0">&lt;access-settings all>&lt;/access-settings></code></pre>
+        <code-example language="html">&lt;access-settings all>&lt;/access-settings></code-example>
       </section>
 
       <section id="dyslexic-font">
@@ -190,8 +186,8 @@ checkBox.addEventListener("change", e => {
         <p lang="fr">La police utilisée est <a href="https://opendyslexic.org/">Open Dyslexic</a> depuis le serveur <a href="https://www.cdnfonts.com">CDN|Fonts</a>.</p>
         <p lang="en">The font used is <a href="https://opendyslexic.org/">Open Dyslexic</a> from the <a href="https://www.cdnfonts.com">CDN|Fonts</a> server.</p>
 
-        <pre><code class="language-html" tabindex="0">&lt;access-settings dyslexic-font>
-&lt;/access-settings></code></pre>
+        <code-example language="html">&lt;access-settings dyslexic-font>
+&lt;/access-settings></code-example>
       </section>
 
       <section id="invert-colors">
@@ -199,8 +195,8 @@ checkBox.addEventListener("change", e => {
         <p lang="fr">Pour activer l'option d'inversion des couleurs, utiliser l'attribut <code>invert-colors</code>.</p>
         <p lang="en">To enable the color inversion option, use the attribute <code>invert-colors</code>.</p>
 
-        <pre><code class="language-html" tabindex="0">&lt;access-settings invert-colors>
-&lt;/access-settings></code></pre>
+        <code-example language="html">&lt;access-settings invert-colors>
+&lt;/access-settings></code-example>
       </section>
 
       <section id="contrast">
@@ -208,8 +204,8 @@ checkBox.addEventListener("change", e => {
         <p lang="fr">Pour activer le réglage du contraste, utiliser l'attribut <code>contrast</code>.</p>
         <p lang="en">To enable contrast setting, use the attribute <code>contrast</code>.</p>
 
-        <pre><code class="language-html" tabindex="0">&lt;access-settings contrast>
-&lt;/access-settings></code></pre>
+        <code-example language="html">&lt;access-settings contrast>
+&lt;/access-settings></code-example>
       </section>
 
       <section id="font-size">
@@ -217,8 +213,8 @@ checkBox.addEventListener("change", e => {
         <p lang="fr">Pour activer le réglage de la taille du texte, utiliser l'attribut <code>font-size</code>.</p>
         <p lang="en">To enable text size setting, use the attribute <code>font-size</code>.</p>
 
-        <pre><code class="language-html" tabindex="0">&lt;access-settings font-size>
-&lt;/access-settings></code></pre>
+        <code-example language="html">&lt;access-settings font-size>
+&lt;/access-settings></code-example>
       </section>
 
       <section id="line-height">
@@ -226,8 +222,8 @@ checkBox.addEventListener("change", e => {
         <p lang="fr">Pour activer le réglage de la hauteur de ligne, utiliser l'attribut <code>line-height</code>.</p>
         <p lang="en">To enable line height setting, use the attribute <code>line-height</code>.</p>
         
-        <pre><code class="language-html" tabindex="0">&lt;access-settings line-height>
-&lt;/access-settings></code></pre>
+        <code-example language="html">&lt;access-settings line-height>
+&lt;/access-settings></code-example>
       </section>
       
       <section id="combinaison">
@@ -236,8 +232,8 @@ checkBox.addEventListener("change", e => {
         <p lang="fr">Vous pouvez bien sûr combiner ces options.</p>
         <p lang="en">You can of course combine these options.</p>
 
-        <pre><code class="language-html" tabindex="0">&lt;access-settings contrast font-size line-height>
-&lt;/access-settings></code></pre>
+        <code-example language="html">&lt;access-settings contrast font-size line-height>
+&lt;/access-settings></code-example>
       </section>
 
       <section id="side">
@@ -249,8 +245,8 @@ checkBox.addEventListener("change", e => {
           use the attribute <code>side="left"</code>
         </p>
 
-        <pre><code class="language-html" tabindex="0">&lt;access-settings all side="left">
-&lt;/access-settings></code></pre>
+        <code-example language="html">&lt;access-settings all side="left">
+&lt;/access-settings></code-example>
       </section>
 
       <section id="rounded">
@@ -258,7 +254,7 @@ checkBox.addEventListener("change", e => {
         <p lang="fr">Pour que le contour de l'icône soit arrondi, utiliser l'attribut <code>rounded</code></p>
         <p lang="en">To round the icon outline, use the attribute <code>rounded</code></p>
 
-        <pre><code class="language-html" tabindex="0">&lt;access-settings all rounded></code></pre>
+        <code-example language="html">&lt;access-settings all rounded></code-example>
       </section>
 
       <section id="lang">
@@ -268,7 +264,7 @@ checkBox.addEventListener("change", e => {
         <p lang="en">Default language is determined by the attribute <code>lang</code> of the root element html.
         You can override it by setting a <code>lang</code> attribute to the component.</p>
 
-        <pre><code class="language-html" tabindex="0">&lt;access-settings all lang="es"></code></pre>
+        <code-example language="html">&lt;access-settings all lang="es"></code-example>
 
         <p lang="fr">Les langues disponibles sont français (<code>fr</code>), anglais (<code>en</code>) et espagnol (<code>es</code>).</p>
         <p lang="en">Available languages are French (<code>fr</code>), English (<code>en</code>) and Spanish (<code>es</code>).</p>
@@ -287,7 +283,7 @@ checkBox.addEventListener("change", e => {
           properly in cases where the existing CSS does not follow best practices and is difficult to modify. 
         </p>
 
-        <pre><code class="language-html" tabindex="0">&lt;access-settings all important></code></pre>
+        <code-example language="html">&lt;access-settings all important></code-example>
       </section>
     </section>
 
@@ -302,9 +298,9 @@ checkBox.addEventListener("change", e => {
         <p lang="fr">Vous pouvez ajouter la langue de votre choix de la façon suivante.</p>
         <p lang="en">You can add the language of your choice as follows.</p>
 
-        <pre><code class="language-html" tabindex="0">&lt;!DOCTYPE html>
-&lt;html lang="oc"></code></pre>
-        <pre><code class="language-js" tabindex="0">import { AccessSettings } from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0";
+        <code-example language="html">&lt;!DOCTYPE html>
+&lt;html lang="oc"></code-example>
+        <code-example language="js">import { AccessSettings } from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0";
 
 AccessSettings.languages.oc = {
   "dyslexic-font": "Poliça disléxica",
@@ -314,7 +310,7 @@ AccessSettings.languages.oc = {
   "line-height": "Nautor de linha",
   "reset": "Reïnicializar",
   "close": "Tampar"
-};</code></pre>
+};</code-example>
       </section>
 
       <section id="position">
@@ -322,11 +318,11 @@ AccessSettings.languages.oc = {
 
         <p lang="fr">Vous pouvez définir le positionnement du composant.</p>
         <p lang="en">You can define the positioning of the component.</p>
-        <pre><code class="language-css" tabindex="0">accessibility-settings {
+        <code-example language="css">accessibility-settings {
   position:fixed;
   top:5px;
   right:5px;
-}</code></pre>
+}</code-example>
         <p lang="fr">Si l'attribut <code>side</code> est défini à <code>left</code>, il vous faudra
 définir la propriété css <code>left</code> plutôt que <code>right</code>.</p>
         <p lang="en">If the attribute <code>side</code> is defined to <code>left</code>,
@@ -340,17 +336,17 @@ définir la propriété css <code>left</code> plutôt que <code>right</code>.</p
 
         <p lang="fr">Vous pouvez personnaliser le style de l'icône en css</p>
         <p lang="en">You can customize the icon style in css</p>
-        <pre><code class="language-css" tabindex="0">access-settings::part(icon) {
+        <code-example language="css">access-settings::part(icon) {
   background-color: brown;
   fill:white;
-}</code></pre>
+}</code-example>
       </section>
       <section id="slot-icon">
         <h3 lang="fr">Changer d'icône</h3>
         <h3 lang="en">Change icon</h3>
-        <pre><code class="language-html" tabindex="0">&lt;access-settings all>
+        <code-example language="html">&lt;access-settings all>
   &lt;span slot="icon">⚙︎&lt;/span>
-&lt;/access-settings></code></pre>
+&lt;/access-settings></code-example>
       </section>
 
       <section id="styles">
@@ -422,12 +418,12 @@ définir la propriété css <code>left</code> plutôt que <code>right</code>.</p
           </li>
         </ul>
         <h4>Exemple</h4>
-        <pre><code class="language-css">access-settings::part(line-height) {
+        <code-example language="css">access-settings::part(line-height) {
   background-color:violet;
 }
 access-settings::part(font-size-label) {
   font-weight:bold;
-}</code></pre>
+}</code-example>
       </section>
 
       <section id="add-option">
@@ -435,18 +431,18 @@ access-settings::part(font-size-label) {
         <h3 lang="en">Add options</h3>
         <p lang="fr">Vous pouvez ajouter des options de la façon suivante :</p>
         <p lang="en">You can add options as follows</p>
-        <pre><code class="language-html" tabindex="0">&lt;access-settings all>
+        <code-example language="html">&lt;access-settings all>
   &lt;div slot="option">
     &lt;label>
       &lt;input type="checkbox" id="custom-input">
       Une nouvelle option
     &lt;/label>
   &lt;/div>
-&lt;/access-settings></code></pre>
-        <pre><code class="language-js" tabindex="0">const input = document.querySelector("#custom-input");
+&lt;/access-settings></code-example>
+        <code-example language="js">const input = document.querySelector("#custom-input");
 input.addEventListener("change", () => {
   if (input.checked) alert("nouvelle option cochée");
-})</code></pre>
+})</code-example>
       </section>
     </section>
     <section id="evenements">
@@ -475,14 +471,14 @@ input.addEventListener("change", () => {
             <span lang="en">current values of all preferences</span>
           </li>
         </ul>
-        <pre><code class="language-js" tabindex="0">const access = document.querySelector("access-settings");
+        <code-example language="js">const access = document.querySelector("access-settings");
 
 access.addEventListener("change", e => {
   const { prop, value, preferences } = e.detail;
 
   alert(`Property ${prop} has changed to ${value}.
   Preferences are now ${JSON.stringify(preferences)}.`);
-})</code></pre>
+})</code-example>
       </section>
     </section>
     <section id="api-doc">
@@ -490,26 +486,26 @@ access.addEventListener("change", e => {
       <section id="access">
         <h3 lang="fr">Accès</h3>
         <h3 lang="en">Access</h3>
-        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";</code></pre>
+        <code-example language="js">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";</code-example>
       </section>
       <section id="properties">
         <h3 lang="fr">Propriétés</h3>
         <h3 lang="en">Properties</h3>
-        <pre><code class="language-js" tabindex="0">accessSettings.dyslexicFont = true;
+        <code-example language="js">accessSettings.dyslexicFont = true;
 accessSettings.invertColors = false;
 accessSettings.contrast = 110;
 accessSettings.fontSize = 18;
-accessSettings.lineHeight = 1.6;</code></pre>
+accessSettings.lineHeight = 1.6;</code-example>
       </section>
       <section id="reset">
         <h3 lang="fr">Réinitialiser une propriété</h3>
         <h3 lang="en">Reset a property</h3>
-        <pre><code class="language-js" tabindex="0">accessSettings.reset("dyslexicFont");</code></pre>
+        <code-example language="js">accessSettings.reset("dyslexicFont");</code-example>
       </section>
       <section id="reset-all">
         <h3 lang="fr">Tout réinitialiser</h3>
         <h3 lang="en">Reset all</h3>
-        <pre><code class="language-js" tabindex="0">accessSettings.reset();</code></pre>
+        <code-example language="js">accessSettings.reset();</code-example>
       </section>
       <section id="save">
         <h3 lang="fr">Sauvegarder les préférences</h3>
@@ -521,21 +517,21 @@ accessSettings.lineHeight = 1.6;</code></pre>
           <span lang="fr">par la méthode <code>save</code></span>
           <span lang="en">using the <code>save</code> method</span>.
         </p>
-        <pre><code class="language-js" tabindex="0">accessSettings.save();</code></pre>
+        <code-example language="js">accessSettings.save();</code-example>
       </section>
       <section id="load">
         <h3 lang="fr">Charger les préférences</h3>
         <h3 lang="en">Load preferences</h3>
         <p lang="fr">Les préférences sauvegardées peuvent être chargées et appliquées par la méthode <code>load</code>.</p>
         <p lang="en">Saved preferences can be loaded and applied using the <code>load</code> method.</p>
-        <pre><code class="language-js" tabindex="0">accessSettings.load();</code></pre>
+        <code-example language="js">accessSettings.load();</code-example>
       </section>
       <section id="remove">
         <h3 lang="fr">Effacer les préférences</h3>
         <h3 lang="en">Remove preferences</h3>
         <p lang="fr">La sauvegarde des préférences peut être supprimée par la méthode <code>remove</code>.</p>
         <p lang="en">Preference saving can be removed using the <code>remove</code> method.</p>
-        <pre><code class="language-js" tabindex="0">accessSettings.remove();</code></pre>
+        <code-example language="js">accessSettings.remove();</code-example>
       </section>
       <section id="api-events">
         <h3 lang="fr">Évènements</h3>
@@ -561,7 +557,7 @@ accessSettings.lineHeight = 1.6;</code></pre>
             <span lang="en">previous value</span>
           </li>
         </ul>
-        <pre><code class="language-js" tabindex="0">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
+        <code-example language="js">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
 
 accessSettings.addEventListener("change", e => {
   const { prop, value, prevValue } = e.detail;
@@ -571,7 +567,7 @@ accessSettings.addEventListener("change", e => {
 });
 
 accessSettings.fontSize = 20; // triggers event
-</code></pre>
+</code-example>
       </section>
     </section>
     <section id="depannage">
@@ -615,16 +611,15 @@ accessSettings.fontSize = 20; // triggers event
             <section>
               <span lang="fr">Mauvais exemple :</span>
               <span lang="en">Bad example :</span>
-              <pre><code class="language-css" tabindex="0">h1 { font-size:32px; }
-p { font-size:16px; }</code></pre>
+              <code-example language="css">h1 { font-size:32px; }
+p { font-size:16px; }</code-example>
             </section>
             <section>
               <span lang="fr">Bon exemple :</span>
               <span lang="en">Good example :</span>
-              <pre><code class="language-css" tabindex="0">:root { font-size:16px; }
+              <code-example language="css">:root { font-size:16px; }
 h1 { font-size:2rem; } /* em, rem, % are ok */
-p { font-size:1rem;  }
-              </code></pre>
+p { font-size:1rem;  }</code-example>
             </section>
           </li>
           <li>
@@ -633,15 +628,14 @@ p { font-size:1rem;  }
             <section>
               <span lang="fr">Mauvais exemple :</span>
               <span lang="en">Bad example :</span>
-              <pre><code class="language-css" tabindex="0">.title { font-family:Roboto,Arial,sans-serif; }
-.paragraphe { font-family:system-ui,sans-serif; }</code></pre>
+              <code-example language="css">.title { font-family:Roboto,Arial,sans-serif; }
+.paragraphe { font-family:system-ui,sans-serif; }</code-example>
             </section>
             <section>
               <span lang="fr">Bon exemple :</span>
               <span lang="en">Good example :</span>
-              <pre><code class="language-css" tabindex="0">h1,h2,h3 { font-family:Roboto,Arial,sans-serif; }
-p { font-family:system-ui,sans-serif;  }
-              </code></pre>
+              <code-example language="css">h1,h2,h3 { font-family:Roboto,Arial,sans-serif; }
+p { font-family:system-ui,sans-serif;  }</code-example>
             </section>
           </li>
         </ul>
