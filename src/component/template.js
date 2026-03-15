@@ -7,7 +7,7 @@ export const template = document.createElement('template');
 
 template.innerHTML = `
   <style>${style}</style>
-  <details part="details" role="group">
+  <details part="details">
     <summary part="summary" aria-label="accessibility settings">
       <slot name="icon">
         <svg viewBox="0 0 389.9 389.6" part="icon" id="default-icon">
@@ -27,7 +27,7 @@ template.innerHTML = `
         </svg>
       </slot>
     </summary>
-    <form part="form">
+    <form part="form" role="region">
       <div class="field" part="dyslexic-font">
         <input type="checkbox" id="dyslexic-font" part="dyslexic-font-input">
         <label for="dyslexic-font" part="dyslexic-font-label">Police dyslexie</label>
