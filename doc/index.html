@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="access-settings is a standalone web component to effortlessly add accessibility options to your websites. Features: dyslexia font, colors, contrast, font size, line height. CDN & NPM install.">
+  <meta name="description" content="access-settings is a standalone web component to effortlessly add accessibility options to your websites. Features: dyslexia-friendly font, color adjustments, contrast control, font size, and line height. CDN & NPM installation available.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" href="favicon.svg">  
   <link rel="stylesheet" href="styles.css">
@@ -32,9 +32,10 @@
       <h2 lang="fr">Présentation</h2>
       <h2 lang="en">Presentation</h2>
       <p lang="fr"><code>access-settings</code> est un composant web autonome pour ajouter sans effort des options d'accessibilité à vos sites web.</p>
-      <p lang="en"><code>access-settings</code> is a standalone web component to effortlessly add accessibility options to your websites.</p>
+      <p lang="en"><code>access-settings</code> is a standalone web component that lets you effortlessly add accessibility options to your websites.</p>
+      
       <p lang="fr">Il est basé sur une API qu'il est possible d'utiliser indépendamment pour une intégration avancée.</p>
-      <p lang="en">It is based on an API that can be used independently for advanced integration.</p>
+      <p lang="en">It's built around an API that can be used independently for advanced integration scenarios.</p>
     </section>
 
     <section id="demarrage">
@@ -45,7 +46,7 @@
         <h3 lang="en">Web component</h3>
         
         <p lang="fr">Ajouter l'appel du script dans la balise <code>&lt;head></code> de votre page html : </p>
-        <p lang="en">Add the script call in the tag <code>&lt;head></code> from your html page : </p>
+        <p lang="en">Add the script tag to the <code>&lt;head&gt;</code> of your HTML page :</p>
 
         <code-example language="html">&lt;script
   src="https://cdn.jsdelivr.net/npm/access-settings@1.0.0"
@@ -53,14 +54,14 @@
 >&lt;/script></code-example>
 
         <p lang="fr">Puis insérer le composant en fin de balise <code>&lt;body></code> :</p>
-        <p lang="en">Then insert the component at the end of the tag <code>&lt;body></code> :</p>
+        <p lang="en">Then insert the component at the end of the <code>&lt;body&gt;</code> tag :</p>
 
         <code-example language="html">&lt;access-settings all>&lt;/access-settings></code-example>
 
         <p lang="fr">Et le tour est joué ! Sur la droite de votre écran apparaît l'icône de configuration de vos préférences.</p>
-        <p lang="en">And it's all done! On the right of your screen appears the icon of setting up your preferences.</p>
+        <p lang="en">hat's it! A settings icon for configuring your preferences will appear on the right side of your screen.</p>
         <p lang="fr">Pour une utilisation plus avancée, vous pouvez parcourir la suite de cette documentation.</p>
-        <p lang="en">For more advanced use, you can browse the rest of this documentation.</p>
+        <p lang="en">For more advanced usage, continue reading this documentation.</p>
 
       </section>
 
@@ -70,23 +71,23 @@
         <p>
           <span lang="fr">En tant qu'internaute, vous pouvez utiliser le composant <code>&lt;access-settings></code>
             en tant que </span>
-          <span lang="en">As a user, you can use the component <code>&lt;access-settings></code>
+          <span lang="en">As a user, you can use the <code>&lt;access-settings></code> component
             as a </span>
           <a href="https://fr.wikipedia.org/wiki/Bookmarklet">bookmarklet</a>.
         </p>
 
         <p lang="fr">Pour cela, faites glisser le bouton suivant jusqu'à votre barre de favoris :</p>
-        <p lang="en">To do this, drag the following button to your favorites bar :</p>
+        <p lang="en">To do this, drag the button below to your bookmarks/favorites bar :</p>
 
         <bookmarklet-me></bookmarklet-me>
         
         <p lang="fr">Sur n'importe quelle page web, vous pourrez cliquer sur ce favori pour configuer vos préférences d'accessibilité.</p>
-        <p lang="en">On any web page, you can click on this favorite to configure your preferences of accessibility.</p>
+        <p lang="en">On any webpage, click this bookmark to configure your accessibility preferences.</p>
 
         <p lang="fr"><strong>Avertissement</strong> : selon la politique de sécurité de la page visitée ainsi
         que la qualité du code css, il se peut que le composant ne puisse pas se charger ou ne fonctionne pas correctement.</p>
-        <p lang="en"><strong>Warning</strong> : according to the security policy of the page visited as well
-          that the quality of the css code, it may be that the component cannot load or work properly.</p>
+        <p lang="en">Warning</strong>: Depending on the security policy of the page you're visiting,
+          as well as the quality of the CSS code, the component may fail to load or not work correctly.</p>
 
       </section>
 
@@ -96,7 +97,7 @@
         <p lang="fr">Vous pouvez aussi utiliser uniquement l'API et gérer vous-même
           l'interface utilisateur.
         </p>
-        <p lang="en">You can also use the API only and manage yourself the user interface.</p>
+        <p lang="en">You can also use just the API and build your own user interface.</p>
         <code-example language="js">import accessSettings from "https://cdn.jsdelivr.net/npm/access-settings@1.0.0/dist/api.min.js";
 
 const checkBox = document.querySelector("#myCheckBox");
@@ -105,7 +106,7 @@ checkBox.addEventListener("change", e => {
   accessSettings.dyslexicFont = e.target.checked;
 });</code-example>
         <strong lang="fr">Rendu :</strong>
-        <strong lang="en">Rendered :</strong>
+        <strong lang="en">Preview :</strong>
         <label>
           <input type="checkbox" id="myCheckBox">
           <span lang="fr">Appliquer la police dyslexie</span>
@@ -113,7 +114,7 @@ checkBox.addEventListener("change", e => {
         </label>
         <p>
           <a href="#api-doc" lang="fr">Détails de l'API</a>
-          <a href="#api-doc" lang="en">API details</a>
+          <a href="#api-doc" lang="en">API reference</a>
         </p>
     </section>
 
@@ -126,8 +127,7 @@ checkBox.addEventListener("change", e => {
         <h3>CDN</h3>
         
         <p lang="fr">Comme indiqué plus haut, l'utilisation d'un serveur CDN est la façon la plus simple et la plus rapide d'installer le composant.</p>
-        <p lang="en">As mentioned above, using a CDN server is the easiest and fastest way to install the component.</p>
-
+        <p lang="en">As mentioned above, using a CDN is the easiest and fastest way to install the component.</p>
         <code-example language="html">&lt;!DOCTYPE html>
 &lt;html lang="fr">
   &lt;head>
@@ -149,7 +149,7 @@ checkBox.addEventListener("change", e => {
         <h3>NPM</h3>
         
         <p lang="fr">Vous pouvez aussi installer le composant par NPM.</p>
-        <p lang="en">You can also install the component by NPM.</p>
+        <p lang="en">You can also install the component via NPM.</p>
 
         <code-example language="sh">npm install access-settings</code-example>
       </section>
@@ -160,8 +160,9 @@ checkBox.addEventListener("change", e => {
 
         <p lang="fr">Ou encore télécharger directement le <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">fichier</a> sur GitHub,
           ou uniquement l'<a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/api.js">API</a>.</p>
-        <p lang="en">Or also directly download the <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">file</a> on GitHub,
-          or only the <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/api.js">API</a>.</p>
+        <p lang="en">Alternatively, you can directly download the <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/index.js">file</a> from GitHub,
+          or just the <a href="https://raw.githubusercontent.com/YannickBochatay/access-settings/refs/heads/main/dist/api.js">API</a> alone.</p>
+
       </section>
     </section>
 
@@ -602,7 +603,7 @@ accessSettings.fontSize = 20; // triggers event
         <p lang="en">If the modification of an accessibility preference remains without effect, or does not correspond to the expected result,
           this is probably due to the lack of respect for good practices <code>css</code>. </p>
         <h4 lang="fr">Bonnes pratiques à respecter</h4>
-        <h4 lang="en">Good practices to follow</h4>
+        <h4 lang="en">Best practices to follow</h4>
         <ul>
           <li>
             <span lang="fr">Définir une taille absolue de police à la racine du document et n'utiliser <strong>que</strong>
