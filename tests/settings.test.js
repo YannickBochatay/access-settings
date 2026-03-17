@@ -190,6 +190,49 @@ QUnit.module('change state', hooks => {
     assert.strictEqual(root.classList.contains("important"), false);
 
     assert.throws(() => settings.important = "yes");
-  })
+  });
+
+  QUnit.test("All enumerable values should be in initialValues", assert => {
+    for (const key in settings) {
+      assert.strictEqual(key in settings.initialValues, true, key);
+    }
+  });
+
+  QUnit.test("add custom property", assert => {
+    const rootCStyle = getComputedStyle(root);
+
+    Object.defineProperty(settings, "color", {
+      enumerable : true,
+      get() { return rootCStyle.color; },
+      set(value) {
+        root.style.color = value;
+        this.triggerChange("color", value);
+      }
+    });
+
+    const initialColor = rootCStyle.color;
+    const newColor = "rgb(0, 0, 255)";
+
+    let cpt = 0;
+
+    settings.addEventListener("change", () => cpt++);
+
+    settings.initialValues.color = rootCStyle.color;
+
+    assert.strictEqual(settings.color, rootCStyle.color);
+
+    settings.color = newColor;
+    assert.strictEqual(rootCStyle.color, newColor);
+    assert.strictEqual(cpt, 1);
+
+    settings.save();
+
+    settings.reset("color");
+    assert.strictEqual(settings.color, initialColor);
+
+    settings.load();
+    assert.strictEqual(settings.color, newColor);
+    assert.strictEqual(rootCStyle.color, newColor);
+  });
 
 });

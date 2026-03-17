@@ -2,25 +2,12 @@ import { toDashCase, getInitialFontSize, getInitialLineHeight } from "./utils.js
 
 const root = document.documentElement;
 
-export const settings = new EventTarget();
-
-settings.reset = function(prop) {
-  if (!prop) {
-    for (let key in initialValues) this.reset(key);
-    return;
-  }
-  if (!(prop in initialValues)) throw new Error(prop + " is not a known setting property");
-
-  this[prop] = initialValues[prop];
-  root.classList.remove(prop);
-};
-
 function setValue(prop, value) {
-  const prevValue = settings["_"+prop];
+  const prevValue = this["_"+prop];
 
   if (prevValue !== value) {
-    settings["_"+prop] = value;
-    settings.dispatchEvent(new CustomEvent("change", { detail : { prop, value, prevValue }}));
+    this["_"+prop] = value;
+    this.triggerChange(prop, value, prevValue);
   }
 }
 
@@ -30,13 +17,13 @@ function setBooleanValue(prop, value) {
   if (value) root.classList.add(prop);
   else root.classList.remove(prop);
 
-  setValue(prop, value);
+  setValue.call(this, prop, value);
 }
 
 function setNumberValue(prop, value, unit="") {
   if (typeof value !== "number") throw new TypeError(`${prop} value must be a number`);
 
-  const bounds = settings.bounds[prop];
+  const bounds = this.bounds[prop];
   if (value < bounds[0] || value > bounds[1]) {
     throw new RangeError(`${prop} value must be between ${bounds[0]} and ${bounds[1]}`);
   }
@@ -44,7 +31,7 @@ function setNumberValue(prop, value, unit="") {
   root.classList.add(prop);
   root.style.setProperty(`--access-${toDashCase(prop)}`, String(value) + unit);
 
-  setValue(prop, value);
+  setValue.call(this, prop, value);
 }
 
 const initialValues = {
@@ -55,6 +42,7 @@ const initialValues = {
   lineHeight : getInitialLineHeight()
 };
 
+export const settings = new EventTarget();
 
 Object.defineProperties(settings, {
   bounds : {
@@ -86,27 +74,61 @@ Object.defineProperties(settings, {
   dyslexicFont : {
     enumerable:true,
     get() { return this._dyslexicFont },
-    set(value) { setBooleanValue("dyslexicFont", value); }
+    set(value) { setBooleanValue.call(this, "dyslexicFont", value); }
   },
   invertColors : {
     enumerable:true,
     get() { return this._invertColors },
-    set(value) { setBooleanValue("invertColors", value); }
+    set(value) { setBooleanValue.call(this, "invertColors", value); }
   },
   contrast : {
     enumerable:true,
     get() { return this._contrast },
-    set(value) { setNumberValue("contrast", value, "%"); }
+    set(value) { setNumberValue.call(this, "contrast", value, "%"); }
   },
   lineHeight : {
     enumerable:true,
     get() { return this._lineHeight },
-    set(value) { setNumberValue("lineHeight", value); }
+    set(value) { setNumberValue.call(this, "lineHeight", value); }
   },
   fontSize : {
     enumerable:true,
     get() { return this._fontSize },
-    set(value) { setNumberValue("fontSize", value, "px"); }
+    set(value) { setNumberValue.call(this, "fontSize", value, "px"); }
+  },
+
+  reset : {
+    value : function(prop) {
+      if (!prop) {
+        for (let key in initialValues) this.reset(key);
+        return;
+      }
+      if (!(prop in initialValues)) throw new Error(prop + " is not a known setting property");
+
+      this[prop] = initialValues[prop];
+      root.classList.remove(prop);
+    }
+  },
+
+  triggerChange : {
+    value : function(prop, value, prevValue) {
+      settings.dispatchEvent(
+        new CustomEvent("change", {
+          detail : { prop, value, prevValue }
+        })
+      );
+    }
+  },
+
+  // redefine EventTarget methods to make them not enumerable
+  dispatchEvent : {
+    value : EventTarget.prototype.dispatchEvent
+  },
+  addEventListener : {
+    value : EventTarget.prototype.addEventListener
+  },
+  removeEventListener : {
+    value : EventTarget.prototype.removeEventListener
   }
 });
  
