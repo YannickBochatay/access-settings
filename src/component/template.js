@@ -10,7 +10,7 @@ template.innerHTML = `
   <details part="details">
     <summary part="summary" aria-label="accessibility settings">
       <slot name="icon">
-        <svg viewBox="0 0 389.9 389.6" part="icon" id="default-icon">
+        <svg role="img" aria-hidden="true" viewBox="0 0 389.9 389.6" part="icon" id="default-icon">
           <circle fill="none" cx="250.6" cy="146.4" r="35.7" transform="matrix(.160226 -.98708 .98708 .160226 6.75 311.71)"></circle>
           <path d="M191.4 130.7c-23.693 0-42.9-19.207-42.9-42.9s19.207-42.9 42.9-42.9 42.9 19.207 42.9 42.9a42.89 42.89 0 0 1-42.9 
             42.9zm0-71.5c-13.69-.038-25.498 9.605-28.197 23.026a28.68 28.68 0 0 0 17.105 32.135c12.641 5.256 27.234.846 34.848-10.531A28.68 

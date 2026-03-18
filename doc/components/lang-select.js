@@ -1,12 +1,10 @@
 const style = document.createElement("style");
 
 style.innerHTML = /*css*/`
-  lang-select select {
-    font-size:1rem;
-    padding:0.3rem 0.6rem;
-
-    option::after {
-      content:"🇫🇷";
+  lang-select {
+    select {
+      font-size:1rem;
+      padding:0.3rem 0.6rem;
     }
   }
 `

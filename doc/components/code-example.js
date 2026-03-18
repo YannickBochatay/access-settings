@@ -46,7 +46,7 @@ template.innerHTML = `
       }
     }
   </style>
-  <div tabindex="0">
+  <div tabindex="0" role="region" aria-label="Code snippet">
     <pre><code class="language-xxx"></code></pre>
     <button title="Copy" aria-label="${label}">
       <svg width="24" height="24">
@@ -102,6 +102,11 @@ class CodeExample extends HTMLElement {
 
     const button = this.shadowRoot.querySelector("button");
     button.addEventListener("click", this.copyCode);
+    
+    const container = this.shadowRoot.querySelector("[tabindex='0']");
+    container.addEventListener("keydown", e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'c') this.copyCode();
+    })
   }
 }
 
